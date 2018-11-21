@@ -2,36 +2,26 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header container">
-                <div class="panel-title">
-                   Autentificare:
-                </div>
             </div>
             <div class="card-body">
                 <form role="form" (submit)="onSubmit()">
                     <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="un">Utilizator:<i class="fa fa-user fa-fw"></i></label>
-                        </div>
-                        <input required [(ngModel)]="username" type="text" class="form-control" name="un"
+                        <input required [(ngModel)]="username" type="text" class="form-control username" name="un"
                                id="un"
-                               placeholder="User" style="">
+                               placeholder="utilizator">
                     </div>
                     <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <label for="pas" class="input-group-text">Parola:<i class="fa fa-unlock-alt fa-fw"></i></label>
-                        </div>
-                        <input required [(ngModel)]="password" type="password" class="form-control" id="pas"
+                        <input required [(ngModel)]="password" type="password" class="form-control password" id="pas"
                                name="pas"
-                               placeholder="Password">
+                               placeholder="parola">
                     </div>
                     <div class="alert alert-danger" *ngIf="showAlert">
-                        <button (click)="closeAlert()" type="button" class="close" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                        <button (click)="closeAlert()" type="button" class="close" aria-label="Close"></button>
                         Utilizator sau parola gresite!
                     </div>
                     <div class="pull-right">
-                        <button type="submit" class="btn btn-primary">
-                            <span><i class="fa fa-sign-in fa-fw"></i></span>Intra
+                        <button type="submit" class="btn btn-primary conectare">
+                            Conectare
                         </button>
                     </div>
                 </form>

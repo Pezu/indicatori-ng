@@ -1,0 +1,38 @@
+.username {
+    color: black;
+    border: none;
+    border-bottom-color: gray;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    text-align: center;
+    width: 20%;
+    margin-left: 40%;
+    height: 30px;
+    margin-top: 10%;
+}
+.username:focus {
+    outline: 0;
+}
+.password {
+    color: red;
+    border: none;
+    text-align: center;
+    width: 20%;
+    margin-left: 40%;
+    height: 30px;
+}
+.conectare {
+    background-clip: border-box;
+    height: 30px;
+    background-color: transparent;
+    width: 20%;
+    margin-left: 40%;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5%;
+}
+.conectare:hover {
+    border-color: #9816f4;
+    -webkit-transition: width 1s;
+    transition: width 1s;
+}
