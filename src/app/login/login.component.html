@@ -15,8 +15,7 @@
                                name="pas"
                                placeholder="parola">
                     </div>
-                    <div class="alert alert-danger" *ngIf="showAlert">
-                        <button (click)="closeAlert()" type="button" class="close" aria-label="Close"></button>
+                    <div class="alert" *ngIf="showAlert" (click)="closeAlert()">
                         Utilizator sau parola gresite!
                     </div>
                     <div class="pull-right">

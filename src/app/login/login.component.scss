@@ -36,3 +36,12 @@
     -webkit-transition: width 1s;
     transition: width 1s;
 }
+.alert {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    color: red;
+    font-size: 10px;
+    position: absolute;
+    cursor: default;
+}
