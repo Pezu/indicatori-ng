@@ -1,0 +1,96 @@
+@import "vendor";
+/* You can add global styles to this file, and also import other style files */
+
+html {
+    font-size: .85rem;
+}
+
+html, body {
+    height: 100%;
+}
+
+.badge {
+    font-size: 85%;
+}
+
+.navbar {
+    text-transform: uppercase;
+}
+
+.card .card-header {
+    color: #9C301A;
+    font: normal 1rem "FranklinCondMedium", Arial;
+    text-transform: uppercase;
+}
+
+.nav-tabs {
+    background-color: #5a5b5d;
+    color: #fff;
+}
+
+.nav-tabs > li > a {
+    color: #fff;
+}
+
+.nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: #9C301A;
+}
+
+.form-group.required .col-form-label:after,
+.form-group.required .form-check-label:after {
+    content: "*";
+    color: red;
+}
+
+select.form-control{
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+
+$col-vh: 680px;
+
+app-person {
+    max-height: $col-vh;
+    overflow: auto;
+}
+
+@media(min-width: #{map-get($grid-breakpoints, md)}) {
+    .main-columns .card-body {
+        min-height: $col-vh;
+        max-height: $col-vh;
+        overflow: auto;
+    }
+}
+
+.modal-lg {
+    max-width: 1400px;
+}
+
+#subs-nav > ul {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.second-column {
+    min-height: 89vh;
+    max-height: 89vh;
+    overflow: auto;
+}
+
+.third-column {
+    min-height: 74vh;
+    max-height: 74vh;
+    overflow: auto;
+}
+
+.modal-scroll {
+    max-height: 74vh;
+    overflow: auto;
+}
+
+.activeMenuEntry {
+    color: #ffffff !important;
+    opacity: 0.75;
+}
