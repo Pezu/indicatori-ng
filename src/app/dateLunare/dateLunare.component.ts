@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 
 export class DateLunareComponent implements OnInit {
   
+  public cars = ['1', '2'];
+  
   constructor() { 
 
   }
