@@ -16,4 +16,8 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
   this.catalogService.loadCatalogs();
   }
+
+  hasRight(right: String): Boolean {
+    return true;
+  }
 }

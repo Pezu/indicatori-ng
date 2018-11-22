@@ -6,6 +6,9 @@ import { MessageService } from './services/message.service';
 import { SecurityService } from './services/security.service';
 import { CatalogService } from './services/catalog.service';
 import { LoginComponent } from './login/login.component';
+import { CheltuieliComponent } from './cheltuieli/cheltuieli.component';
+import { RapoarteComponent } from './reports/rapoarte.component';
+import { DateLunareComponent } from './dateLunare/dateLunare.component';
 import { HomePageComponent } from './home/home-page.component';
 import { EmptyReportComponent } from './reports/empty-report.component';
 import {
@@ -25,9 +28,13 @@ import { AppComponent } from './app.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomePageComponent },
-  { path: 'home', component: HomePageComponent },
-  { path: 'emptyReport', component: EmptyReportComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomePageComponent, children: [
+    { path: 'cheltuieli', component: CheltuieliComponent },
+    { path: 'rapoarte', component: RapoarteComponent },
+    { path: 'emptyReport', component: EmptyReportComponent },
+    { path: 'date_lunare', component: DateLunareComponent }
+                                                            ] },
   { path: 'userlogin', component: LoginComponent },
 ];
 
@@ -36,7 +43,10 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     EmptyReportComponent,
-    HomePageComponent
+    HomePageComponent,
+    CheltuieliComponent,
+    RapoarteComponent,
+    DateLunareComponent
   ],
   imports: [
     FormsModule,

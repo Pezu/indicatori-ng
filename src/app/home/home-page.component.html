@@ -1,1 +1,32 @@
-Best Regards
+<div class="row">
+    <div class="col">
+        <img src="https://www.freelogodesign.org/Content/img/logo.png" width="300" height="100" alt="">
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+            <nav class="navbar navbar-dark navbar-expand bg-primary" role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" *ngIf="hasRight('VDL')"  [routerLink]="['/home/date_lunare']">Date Lunare</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" *ngIf="hasRight('VCHE')" [routerLink]="['/home/cheltuieli']">Cheltuieli</a>
+                        </li>
+                        <li class="nav-item">
+                                <div ngbDropdown class="d-inline-block mr-2" *ngIf="hasRight('VRP')">
+                                        <a class="nav-link" ngbDropdownToggle>Rapoarte</a>
+                                        <div ngbDropdownMenu aria-labelledby="settingsDropdown">
+                                            <a class="nav-link" [routerLink]="['/home/rapoarte']">Rapoarte </a>
+                                            <a class="nav-link" [routerLink]="['/home/emptyReport']">Raport Gol</a>
+                                        </div>
+                                    </div>
+                        </li>
+                    </ul>
+            </nav>
+    </div>
+</div>
+<div class="container-fluid">
+        <router-outlet></router-outlet>
+</div>
+        
