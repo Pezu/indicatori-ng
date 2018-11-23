@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from '../services/catalog.service';
 import { SecurityService } from '../services/security.service';
+import { DataKeeperService } from '../services/datakeeper.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -15,7 +16,8 @@ export class HomePageComponent implements OnInit {
   public monthList: any[] = [];
 
   constructor(private catalogService: CatalogService,
-              private securityService: SecurityService ) {
+              private securityService: SecurityService,
+              private dataKeeper: DataKeeperService ) {
 
   }
 
@@ -30,6 +32,7 @@ export class HomePageComponent implements OnInit {
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
     this.selectedMonth = String(year) + String(month);
+    this.dataKeeper.storeData('selectedMonth', this.selectedMonth);
     if ((month - 3) < 1) { year--; month = 9 + month; } else { month = month - 3; }
     let mountCount = 1;
     while (mountCount < 13) {
@@ -42,6 +45,10 @@ export class HomePageComponent implements OnInit {
       if (month > 12) { month = 1; year++; }
       mountCount++;
     }
+  }
+
+  changeSelectedMonth() {
+    this.dataKeeper.storeData('selectedMonth', this.selectedMonth);
   }
 
   hasRight(right: String): Boolean {

@@ -22,4 +22,13 @@ export class ApiService {
   getMonthlyType() {
     return this.messageService.getRequest('/api/catalog/mounthly-type');
   }
+
+  getMonthlyAllowedUnits(id: Number) {
+    return this.messageService.getRequest('/api/monthly/allowed/' + String(id));
+  }
+
+  sendDateLunareUpdate(toSendList: any) {
+    return this.messageService.postRequest('/api/monthly/update', toSendList);
+  }
+
 }

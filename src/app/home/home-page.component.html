@@ -12,7 +12,7 @@
         <span> <i class="fa fa-remove fw"></i> </span>
         Rapoarte
     </div>     
-    <select [ngModel]="selectedMonth">
+    <select name="selMon" [(ngModel)]="selectedMonth" (change)="changeSelectedMonth()">
             <option *ngFor="let m of monthList" [value]="m.val">{{m.name}}</option>
     </select>    
     <div class="user">

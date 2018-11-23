@@ -1,3 +1,5 @@
+import { Utils } from './services/utils.service';
+import { DataKeeperService } from './services/datakeeper.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -69,7 +71,9 @@ const appRoutes: Routes = [
     ApiService,
     MessageService,
     SecurityService,
-    CatalogService
+    CatalogService,
+    DataKeeperService,
+    Utils
   ],
   bootstrap: [AppComponent]
 })
