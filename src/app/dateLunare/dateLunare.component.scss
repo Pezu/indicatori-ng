@@ -42,10 +42,12 @@
     display: inline-block;
 }
 input[type="text"] {
-    height: 25px;
+    height: 30px;
     width: 250px;
     border: 1px solid #34bfa3;
     padding-left: 10px;
+    font-family: Roboto;
+    font-size: 12px;
 }
 input[type="text"]:focus {
     outline: 0;
@@ -55,11 +57,12 @@ input[type="text"]:focus {
     background-clip: border-box;
     height: 30px;
     background-color: transparent;
-    width: 265px;
+    width: 250px;
     margin-left: 165px;
-    border-radius: 4px;
     cursor: pointer;
     margin-top: 15px;
+    font-family: Roboto;
+    font-size: 12px;
 }
 .salvare:hover {
     border-color: #9816f4;

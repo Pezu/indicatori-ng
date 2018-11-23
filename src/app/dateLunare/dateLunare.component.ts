@@ -4,9 +4,9 @@ import { CatalogService } from '../services/catalog.service';
 import { DataKeeperService } from '../services/datakeeper.service';
 
 @Component({
-  selector: 'app-datelunare',
-  templateUrl: './datelunare.component.html',
-  styleUrls: ['./datelunare.component.scss']
+  selector: 'app-dateLunare',
+  templateUrl: './dateLunare.component.html',
+  styleUrls: ['./dateLunare.component.scss']
 })
 
 export class DatelunareComponent implements OnInit {

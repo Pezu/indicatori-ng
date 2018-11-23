@@ -10,7 +10,7 @@ import { CatalogService } from './services/catalog.service';
 import { LoginComponent } from './login/login.component';
 import { CheltuieliComponent } from './cheltuieli/cheltuieli.component';
 import { RapoarteComponent } from './reports/rapoarte.component';
-import { DatelunareComponent } from './datelunare/datelunare.component';
+import { DatelunareComponent } from './dateLunare/dateLunare.component';
 import { HomePageComponent } from './home/home-page.component';
 import { EmptyReportComponent } from './reports/empty-report.component';
 import {

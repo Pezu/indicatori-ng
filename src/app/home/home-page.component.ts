@@ -35,7 +35,7 @@ export class HomePageComponent implements OnInit {
     this.dataKeeper.storeData('selectedMonth', this.selectedMonth);
     if ((month - 3) < 1) { year--; month = 9 + month; } else { month = month - 3; }
     let mountCount = 1;
-    while (mountCount < 13) {
+    while (mountCount < 6) {
       if (month < 10) {
         this.monthList.push({val: String(year) + '0' + String(month), name: String(year) + ' - ' + this.catalogService.getMonth(month)});
       } else {
