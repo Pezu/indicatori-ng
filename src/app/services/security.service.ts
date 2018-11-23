@@ -20,7 +20,7 @@ export class SecurityService {
     this.token = null;
    }
 
-   getLogin( body: any ): Observable<any> {
+   private getLogin( body: any ): Observable<any> {
         const obs = new Observable( observer => {
           this.http.post('/api/user/login', body, {
               headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -59,6 +59,14 @@ export class SecurityService {
 
   public getToken(): any {
     return this.token;
+  }
+
+  public getUserName(): any {
+    return this.userName;
+  }
+
+  public getUserRole(): any {
+    return this.userRole;
   }
 
   public isLogged(): Boolean {

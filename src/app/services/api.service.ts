@@ -18,4 +18,8 @@ export class ApiService {
   getCategories() {
     return this.messageService.getRequest('/api/catalog/categories');
   }
+
+  getMonthlyType() {
+    return this.messageService.getRequest('/api/catalog/mounthly-type');
+  }
 }

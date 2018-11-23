@@ -1,8 +1,8 @@
 <div class="content">
-    <select>
+    <select [ngModel]="monthlyTypeId">
         <option value="0">-</option>
-        <option value="1">Numar zile spitalizare</option>
-    </select>
+        <option *ngFor="let m of monthlyTypeList" [value]="m.id">{{m.name}}</option>
+    </select> 
     <div class="divider">
 
     </div> 
@@ -12,7 +12,6 @@
     <div class="textfield">
         <label class="label">Medicina interna</label><input type="text">
     </div>
-
     <div class="textfield">
         <label class="label">Neurologie</label><input type="text">
     </div>
