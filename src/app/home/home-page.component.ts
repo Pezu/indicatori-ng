@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from '../services/catalog.service';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 @Component({
   selector: 'app-home-page',

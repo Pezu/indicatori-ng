@@ -1,11 +1,15 @@
 <div class="layer">
+    <img src="pics/Untitled.png" width="50" height="50" alt="">
     <div class="item" *ngIf="hasRight('VDL')"  [routerLink]="['/home/date_lunare']">
+        <span> <i class="fa fa-plus fw"></i> </span>
         Date Lunare
     </div>
     <div class="item" *ngIf="hasRight('VCHE')" [routerLink]="['/home/cheltuieli']">
+        <span> <i class="fa fa-minus fw"></i> </span>
         Cheltuieli
     </div>
     <div class="item" *ngIf="hasRight('VRAP')" [routerLink]="['/home/rapoarte']">
+        <span> <i class="fa fa-remove fw"></i> </span>
         Rapoarte
     </div>         
     <select>
