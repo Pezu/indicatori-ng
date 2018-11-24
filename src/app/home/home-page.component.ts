@@ -49,6 +49,11 @@ export class HomePageComponent implements OnInit {
 
   changeSelectedMonth() {
     this.dataKeeper.storeData('selectedMonth', this.selectedMonth);
+    this.dataKeeper.shareMessage('selectedMonthChange');
+  }
+
+  doLogOff() {
+    this.securityService.userLogOff();
   }
 
   hasRight(right: String): Boolean {

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Utils } from './utils.service';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class DataKeeperService {
 
   private dataToKeep: any;
+  private messageSharing = new Subject<any>();
 
   constructor( ) {
     this.dataToKeep = new Map;
@@ -18,6 +20,15 @@ export class DataKeeperService {
 
   public getData( name: String ): any {
     return this.dataToKeep.get(name);
-}
+  }
+
+
+  listen(): Observable<any> {
+     return this.messageSharing.asObservable();
+  }
+
+  shareMessage(messageTo: string) {
+     this.messageSharing.next(messageTo);
+  }
 
 }
