@@ -1,6 +1,6 @@
 <div class="content">
     <select class="select" name="mountlyType" [(ngModel)]="monthlyTypeId" (change)="changeMonthlyType()">
-        <option value= 0>-</option>
+        <option value= 0> - Date - </option>
         <option *ngFor="let m of monthlyTypeList" [value]="m.id">{{m.name}}</option>
     </select> 
     <div class="divider">
