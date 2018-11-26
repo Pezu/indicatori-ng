@@ -27,15 +27,12 @@ export class CheltuieliComponent implements OnInit {
   ngOnInit() {
     this.catalogService.getGroups().subscribe((response: any) => {
       this.groupList = response;
-      console.log(response);
     });
     this.catalogService.getCategories().subscribe((response: any) => {
       this.categoryList = response;
       this.categoryListDisplay = this.categoryList;
-      console.log(response);
     });
     this.apiService.getGrupaCategorieArticol().subscribe((response) => {
-      console.log(response);
       this.articleList = response;
       let counter = 0;
       while (counter < this.articleList.length) {
@@ -46,7 +43,6 @@ export class CheltuieliComponent implements OnInit {
       counter++;
       this.articleListDisplay = this.articleList;
       }
-      console.log(this.articleList);
     });
 
   }

@@ -1,4 +1,5 @@
 import { Utils } from './services/utils.service';
+import { SimplemodalComponent } from './utils/simplemodal.component';
 import { DataKeeperService } from './services/datakeeper.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     HomePageComponent,
     CheltuieliComponent,
     RapoarteComponent,
-    DatelunareComponent
+    DatelunareComponent,
+    SimplemodalComponent
   ],
   imports: [
     FormsModule,
@@ -76,6 +78,9 @@ const appRoutes: Routes = [
     CatalogService,
     DataKeeperService,
     Utils
+  ],
+  entryComponents: [
+    SimplemodalComponent
   ],
   bootstrap: [AppComponent]
 })
