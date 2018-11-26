@@ -18,6 +18,10 @@ export class CheltuieliComponent implements OnInit {
   public articleList: any[] = [];
   public articleListDisplay: any[] = [];
   public selectedArticleId: any;
+  public unitList: any[] = [];
+  public selectedUnitId: Number;
+  public splitList: any[] = [];
+  public selectedSplitId: Number;
 
   constructor(private catalogService: CatalogService,
               private apiService: ApiService) {
@@ -25,6 +29,18 @@ export class CheltuieliComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initialInit();
+    this.readData();
+  }
+
+  readData() {
+    this.catalogService.getUnits().subscribe((response: any) => {
+      this.unitList = response;
+    });
+    this.catalogService.getSplits().subscribe((response: any) => {
+      this.splitList = response;
+      console.log(response);
+    });
     this.catalogService.getGroups().subscribe((response: any) => {
       this.groupList = response;
     });
@@ -44,9 +60,12 @@ export class CheltuieliComponent implements OnInit {
       this.articleListDisplay = this.articleList;
       }
     });
-
   }
 
+  initialInit() {
+    this.selectedUnitId = 0;
+    this.selectedSplitId = 0;
+  }
 
   selectGroupOrCategory(type: Boolean) {
     if (type) {

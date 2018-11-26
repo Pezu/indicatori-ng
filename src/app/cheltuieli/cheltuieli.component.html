@@ -20,41 +20,23 @@
             </select> 
         </div>
     </div>
-    <div *ngIf="selectedArticleId">
-    <div class="divider"> </div>
+    <div class="divider" *ngIf="selectedArticleId"> </div>
 
-    <select class="select" name="unit">
+    <select class="select" name="unit" *ngIf="selectedArticleId" [(ngModel)]="selectedUnitId">
         <option value= 0> - Unitate - </option>
-        <option value= 1>Unit 1</option>
-        <option value= 2>Unit 2</option>
+        <option *ngFor="let u of unitList" [value]="u.id">{{u.name}}</option>
     </select> 
 
-    <select class="select" name="split">
+    <select class="select" name="split" *ngIf="selectedUnitId" [(ngModel)]="selectedSplitId">
         <option value= 0> - Tip de repartizare - </option>
-        <option value= 1>Repartizare 1</option>
-        <option value= 2>Repartizare 2</option>
+        <option *ngFor="let s of splitList" [value]="s.id">{{s.name}}</option>
     </select> 
-
-    <input type="text" placeholder="Valoare">
-
-    <div class="divider"> </div>
-
-    <div class="textfield">
-        <label class="label">Unitate 3</label><input type="text"> <input type="text" class="weight" readonly>
+    <input type="text" placeholder="Valoare" *ngIf="selectedSplitId">
+    <div *ngIf="selectedSplitId">
+        <div class="divider"> </div>
+        <app-split-on-custom *ngIf="selectedSplitId === '4'"></app-split-on-custom>
+        <app-split-on-percentage *ngIf="selectedSplitId === '1'"></app-split-on-percentage>
+        <app-split-on-universal *ngIf="selectedSplitId !== '1' && selectedSplitId !== '4'"></app-split-on-universal>
     </div>
-
-    <div class="textfield">
-        <label class="label">Unitate 3</label><input type="text"> <input type="text" class="weight" readonly>
-    </div>
-
-    <div class="textfield">
-        <label class="label">Unitate 3</label><input type="text"> <input type="text" class="weight" readonly>
-    </div>
-
-    <button type="submit" class="salvare">
-        Salvare
-    </button>
-    <i class="fa fa-save"></i>
-
 
 </div>

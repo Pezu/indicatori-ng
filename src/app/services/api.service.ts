@@ -19,6 +19,10 @@ export class ApiService {
     return this.messageService.getRequest('/api/catalog/categories');
   }
 
+  getSplits() {
+    return this.messageService.getRequest('/api/catalog/splits');
+  }
+
   getGroups() {
     return this.messageService.getRequest('/api/catalog/groups');
   }

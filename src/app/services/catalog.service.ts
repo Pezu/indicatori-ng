@@ -14,6 +14,8 @@ export class CatalogService {
   private loadedUnits: Boolean = false;
   private categories: any;
   private loadedCategories: Boolean = false;
+  private splits: any;
+  private loadedSplits: Boolean = false;
   private groups: any;
   private loadedGroups: Boolean = false;
   private monthlyType: any;
@@ -89,6 +91,23 @@ export class CatalogService {
           this.groups = result;
           this.loadedGroups = true;
           observer.next(this.groups);
+          observer.complete();
+        });
+      }
+    });
+    return obs;
+  }
+
+  public getSplits(): Observable<any> {
+    const obs = new Observable( observer => {
+      if (this.loadedSplits) {
+        observer.next(this.splits);
+        observer.complete();
+      } else {
+        this.apiService.getSplits().subscribe((result: any) => {
+          this.splits = result;
+          this.loadedSplits = true;
+          observer.next(this.splits);
           observer.complete();
         });
       }
