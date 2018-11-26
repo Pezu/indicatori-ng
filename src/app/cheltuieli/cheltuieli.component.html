@@ -31,12 +31,12 @@
         <option value= 0> - Tip de repartizare - </option>
         <option *ngFor="let s of splitList" [value]="s.id">{{s.name}}</option>
     </select> 
-    <input type="text" placeholder="Valoare" *ngIf="selectedSplitId">
+    <input type="text" placeholder="Valoare" *ngIf="selectedSplitId" [(ngModel)]="setedValue">
     <div *ngIf="selectedSplitId">
         <div class="divider"> </div>
-        <app-split-on-custom *ngIf="selectedSplitId === '4'"></app-split-on-custom>
-        <app-split-on-percentage *ngIf="selectedSplitId === '1'"></app-split-on-percentage>
-        <app-split-on-universal *ngIf="selectedSplitId !== '1' && selectedSplitId !== '4'"></app-split-on-universal>
+        <app-split-on-custom *ngIf="selectedSplitId === '4'" [value]="setedValue" ></app-split-on-custom>
+        <app-split-on-percentage *ngIf="selectedSplitId === '1'" [value]="setedValue"></app-split-on-percentage>
+        <app-split-on-universal *ngIf="selectedSplitId !== '1' && selectedSplitId !== '4'" [value]="setedValue"></app-split-on-universal>
     </div>
 
 </div>

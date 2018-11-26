@@ -22,6 +22,7 @@ export class CheltuieliComponent implements OnInit {
   public selectedUnitId: Number;
   public splitList: any[] = [];
   public selectedSplitId: Number;
+  public setedValue: any;
 
   constructor(private catalogService: CatalogService,
               private apiService: ApiService) {
