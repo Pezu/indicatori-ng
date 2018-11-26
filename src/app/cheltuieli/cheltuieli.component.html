@@ -1,4 +1,21 @@
 <div class="content">
+    <ng-select [items]="groupList"
+        bindLabel="name"
+        bindValue="code"
+        [(ngModel)]="selectedGroupCode"
+        (change)="selectGroupOrCategory(true)">
+    </ng-select>
+    <ng-select [items]="categoryListDisplay"
+        bindLabel="name"
+        bindValue="code"
+        [(ngModel)]="selectedCategoryCode"
+        (change)="selectGroupOrCategory(false)">
+    </ng-select>
+    <ng-select [items]="articleListDisplay"
+        bindLabel="composedName"
+        bindValue="id"
+        [(ngModel)]="selectedArticleId">
+    </ng-select>
     <select class="select" name="group">
         <option value= 0> - Grupa- </option>
         <option value= 1>Grupa 1</option>

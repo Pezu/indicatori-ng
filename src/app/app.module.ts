@@ -13,6 +13,7 @@ import { RapoarteComponent } from './reports/rapoarte.component';
 import { DatelunareComponent } from './dateLunare/dateLunare.component';
 import { HomePageComponent } from './home/home-page.component';
 import { EmptyReportComponent } from './reports/empty-report.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 import {
   NgbAccordionModule,
   NgbAlertModule,
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     FormsModule,
+    NgSelectModule,
     BrowserModule,
     NgbModalModule.forRoot(),
     NgbAccordionModule.forRoot(),

@@ -19,6 +19,14 @@ export class ApiService {
     return this.messageService.getRequest('/api/catalog/categories');
   }
 
+  getGroups() {
+    return this.messageService.getRequest('/api/catalog/groups');
+  }
+
+  getGrupaCategorieArticol() {
+    return this.messageService.getRequest('/api/catalog/autocomplete');
+  }
+
   getMonthlyType() {
     return this.messageService.getRequest('/api/catalog/mounthly-type');
   }
