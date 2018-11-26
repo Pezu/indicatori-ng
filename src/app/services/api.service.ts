@@ -31,4 +31,8 @@ export class ApiService {
     return this.messageService.postRequest('/api/monthly/update', toSendList);
   }
 
+  getMonthlyByMonthAndTypeId(month: any, type_id: any) {
+    return this.messageService.getRequest('/api/monthly/get/' + String(month) + '/' + String(type_id));
+  }
+
 }

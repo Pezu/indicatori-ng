@@ -38,21 +38,36 @@ export class DatelunareComponent implements OnInit {
     this.catalogService.getMonthlyType().subscribe((response: any) => {
       this.monthlyTypeList = response;
     });
+    this.getStroredData();
+  }
+
+  getStroredData() {
+    this.apiService.getMonthlyByMonthAndTypeId(this.selectedMonth, this.monthlyTypeId).subscribe((response: any) => {
+      let counter = 0;
+      while (counter < this.domainList.length) {
+        for (const respelem of response) {
+          if (Number(this.domainList[counter].unitId) === Number(respelem.unitId)) {
+            this.domainList[counter].value = respelem.value;
+           }}
+      counter++;
+      }
+    });
   }
 
   changeMonthlyType() {
     this.domainList = [];
     this.apiService.getMonthlyAllowedUnits(this.monthlyTypeId).subscribe((response: any) => {
       for (const elem of response) {
-        this.domainList.push({name: elem.name, value: 0, id: elem.id, type: this.monthlyTypeId, month: this.selectedMonth});
+        this.domainList.push({name: elem.name, value: 0, unitId: elem.id, typeId: this.monthlyTypeId, month: this.selectedMonth});
       }
+      this.getStroredData();
     });
   }
 
   doSave() {
     const output = [];
     for (const elem of this.domainList) {
-      output.push({value: elem.value, id: elem.id, type: elem.type, month: this.selectedMonth});
+      output.push({value: elem.value, unitId: elem.unitId, typeId: elem.typeId, month: this.selectedMonth});
     }
     this.apiService.sendDateLunareUpdate(output).subscribe();
   }
