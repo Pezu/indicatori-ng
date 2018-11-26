@@ -11,10 +11,10 @@ import { CatalogService } from '../services/catalog.service';
 export class CheltuieliComponent implements OnInit {
 
   public groupList: any[] = [];
-  public selectedGroupCode: any;
+  public selectedGroupCode: String = '';
   public categoryList: any[] = [];
   public categoryListDisplay: any[] = [];
-  public selectedCategoryCode: any;
+  public selectedCategoryCode: String = '';
   public articleList: any[] = [];
   public articleListDisplay: any[] = [];
   public selectedArticleId: any;
@@ -50,16 +50,16 @@ export class CheltuieliComponent implements OnInit {
 
   selectGroupOrCategory(type: Boolean) {
     if (type) {
-      this.selectedCategoryCode = null;
+      this.selectedCategoryCode = '';
     }
     this.selectedArticleId = null;
     this.categoryListDisplay = this.categoryList;
     this.articleListDisplay = this.articleList;
-    if (this.selectedGroupCode) {
+    if (this.selectedGroupCode !== '') {
       this.categoryListDisplay = this.categoryList.filter(elem => elem.group.code === this.selectedGroupCode);
       this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === this.selectedGroupCode);
     }
-    if (this.selectedCategoryCode) {
+    if (this.selectedCategoryCode !== '') {
       this.articleListDisplay = this.articleList.filter(elem => elem.categoryCode === this.selectedCategoryCode);
       }
   }

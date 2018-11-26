@@ -1,6 +1,6 @@
 <div class="content">
     <div class="row">
-        <div class="col-5">
+        <div class="col">
             Articol
             <ng-select [items]="articleListDisplay"
                 bindLabel="composedName"
@@ -8,24 +8,16 @@
                 [(ngModel)]="selectedArticleId">
             </ng-select>
         </div>
-        <div class="col-2">
+        <div class="col">
             Filtre
-        </div>
-        <div class="col-5">
-            Grup
-            <ng-select [items]="groupList"
-                bindLabel="name"
-                bindValue="code"
-                [(ngModel)]="selectedGroupCode"
-                (change)="selectGroupOrCategory(true)">
-            </ng-select>
-            Categorie
-            <ng-select [items]="categoryListDisplay"
-                bindLabel="name"
-                bindValue="code"
-                [(ngModel)]="selectedCategoryCode"
-                (change)="selectGroupOrCategory(false)">
-            </ng-select>
+            <select class="select" name="unit" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
+                    <option value= ""> - Grup - </option>
+                    <option *ngFor="let g of groupList" [value]="g.code">{{g.name}}</option>
+            </select> 
+            <select class="select" name="unit" [(ngModel)]="selectedCategoryCode" (change)="selectGroupOrCategory(false)">
+                    <option value= ""> - Categorie - </option>
+                    <option *ngFor="let c of categoryListDisplay" [value]="c.code">{{c.name}}</option>
+            </select> 
         </div>
     </div>
     <div *ngIf="selectedArticleId">
