@@ -80,12 +80,12 @@ export class CheltuieliAddComponent implements OnInit {
     const output = {
       month: this.selectedMonth,
       articleId: null,
-      uinitId: null,
+      unitId: null,
       categoryId: null,
       groupId: null
       };
     if (this.selectedArticleId) { output.articleId = this.selectedArticleId; }
-    if ((Number(this.selectedUnitId) !== 0)) { output.uinitId = this.selectedUnitId; }
+    if ((Number(this.selectedUnitId) !== 0)) { output.unitId = this.selectedUnitId; }
     if (groupId) { output.groupId = groupId; }
     if (categoryId) { output.categoryId = categoryId; }
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
