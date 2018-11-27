@@ -59,4 +59,8 @@ export class ApiService {
     return this.messageService.postRequest('/api/expense/insert', expense);
   }
 
+  deleteFacturi(expenseId: any) {
+    return this.messageService.getRequest('/api/expense/delete/' + expenseId);
+  }
+
 }

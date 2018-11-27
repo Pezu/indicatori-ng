@@ -87,6 +87,9 @@ export class AddExpenseModalComponent implements OnInit {
     this.apiService.addFacturi(output).subscribe((result: any) => {
       this.result.emit('Saved');
       this.activeModal.close();
+    }, error => {
+      this.result.emit('Error');
+      this.activeModal.close();
     });
           }
   doCancel() {

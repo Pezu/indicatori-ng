@@ -1,5 +1,6 @@
 import { Utils } from './services/utils.service';
 import { SimplemodalComponent } from './utils/simplemodal.component';
+import { YesnomodalComponent } from './utils/yesnomodal.component';
 import { DataKeeperService } from './services/datakeeper.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
     SplitOnPercentageComponent,
     SplitOnUniversalComponent,
     CheltuieliAddComponent,
-    AddExpenseModalComponent
+    AddExpenseModalComponent,
+    YesnomodalComponent
   ],
   imports: [
     FormsModule,
@@ -92,7 +94,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     SimplemodalComponent,
-    AddExpenseModalComponent
+    AddExpenseModalComponent,
+    YesnomodalComponent
   ],
   bootstrap: [AppComponent]
 })

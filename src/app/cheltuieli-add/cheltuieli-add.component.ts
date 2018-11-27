@@ -4,6 +4,8 @@ import { ApiService } from '../services/api.service';
 import { CatalogService } from '../services/catalog.service';
 import { DataKeeperService } from '../services/datakeeper.service';
 import { AddExpenseModalComponent } from './add-expense-modal.component';
+import { SimplemodalComponent } from '../utils/simplemodal.component';
+import { YesnomodalComponent } from '../utils/yesnomodal.component';
 
 @Component({
   selector: 'app-cheltuieli-add',
@@ -117,8 +119,15 @@ export class CheltuieliAddComponent implements OnInit {
     modalRef.componentInstance.unitList = this.unitList;
     modalRef.componentInstance.month = this.selectedMonth;
     modalRef.componentInstance.result.subscribe( (value: any) => {
-        if ( value === 'Saved' ) {
-          this.readResults(); }} );
+        let confirmare = true;
+        if ( value === 'Saved' ) { this.readResults(); }
+        if ( value === 'Error' ) { confirmare = false; }
+        if (!confirmare) {
+          const modalRef1 = this.modalService.open(SimplemodalComponent);
+          modalRef1.componentInstance.title = 'Salvare Cheltuiala';
+          modalRef1.componentInstance.message = 'A survenit o eroare la salvarea datelor';
+        }
+      });
   }
 
   changeArticle() {
@@ -127,6 +136,19 @@ export class CheltuieliAddComponent implements OnInit {
       this.selectedGroupCode = elem.groupCode;
     }}
     this.readResults();
+  }
+
+  confirmDelete(id: Number) {
+    const modalRef = this.modalService.open(YesnomodalComponent);
+    modalRef.componentInstance.titlu = 'Confirma stergerea';
+    modalRef.componentInstance.message = 'Sunteti sigur ca vreti sa eliminati aceasta cheltuiala?';
+    modalRef.componentInstance.result.subscribe(() => {
+        this.deleteFactura(id);
+        }, error => {});
+  }
+
+  deleteFactura(id: Number) {
+    this.apiService.deleteFacturi(id).subscribe();
   }
 
 }

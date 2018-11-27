@@ -36,6 +36,7 @@
                 <th>Categorie</th>
                 <th>Suma</th>
                 <th>Descriere</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -47,6 +48,7 @@
                     <td>{{ exp.category }}</td>
                     <td>{{ exp.value }}</td>
                     <td>{{ exp.description }}</td>
+                    <td><button type="button" class="adauga" (click)="confirmDelete(exp.id)">Sterge</button></td>
                 </tr>
             </tbody>
         </table>
