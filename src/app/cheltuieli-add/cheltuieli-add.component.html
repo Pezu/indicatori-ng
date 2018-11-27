@@ -1,5 +1,10 @@
 <div class="content">
 
+    <select class="select" name="unit" [(ngModel)]="selectedUnitId" (change)="readResults()">
+        <option value= 0> - Unitate - </option>
+        <option *ngFor="let u of unitList" [value]="u.id">{{u.name}}</option>
+    </select> 
+
     <select class="select" name="group" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
         <option value= ""> - Grup - </option>
         <option *ngFor="let g of groupList" [value]="g.code">{{g.name}}</option>
@@ -18,40 +23,35 @@
         (change)="changeArticle()">
     </ng-select>
 
-    <select class="select" name="unit" [(ngModel)]="selectedUnitId" (change)="readResults()">
-        <option value= 0> - Unitate - </option>
-        <option *ngFor="let u of unitList" [value]="u.id">{{u.name}}</option>
-    </select> 
-
     <div class="divider"> </div>
 
-    <div class="card-body" *ngIf="gotResults">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Unitate</th>
-                <th>Articol</th>
-                <th>Grupa</th>
-                <th>Categorie</th>
-                <th>Suma</th>
-                <th>Descriere</th>
-                <th></th>
+    <button type="button" class="salvare" (click)="addFactura()">Adauga</button>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Unitate</th>
+            <th>Articol</th>
+            <th>Grupa</th>
+            <th>Categorie</th>
+            <th>Suma</th>
+            <th>Descriere</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let exp of expensesList; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{ unitName(exp.unitId) }}</td>
+                <td>{{ articleName(exp.articleId) }}</td>
+                <td>{{ groupName(exp.groupId) }}</td>
+                <td>{{ categoryName(exp.categoryId) }}</td>
+                <td>{{ exp.amount }}</td>
+                <td>{{ exp.description }}</td>
+                <td><i class="fa fa-trash" (click)="confirmDelete(exp.id)"></i></td>
             </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let exp of expensesList; let i = index">
-                    <td>{{i + 1}}</td>
-                    <td>{{ unitName(exp.unitId) }}</td>
-                    <td>{{ articleName(exp.articleId) }}</td>
-                    <td>{{ groupName(exp.groupId) }}</td>
-                    <td>{{ categoryName(exp.categoryId) }}</td>
-                    <td>{{ exp.amount }}</td>
-                    <td>{{ exp.description }}</td>
-                    <td><button type="button" class="adauga" (click)="confirmDelete(exp.id)">Sterge</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <button type="button" class="adauga" (click)="addFactura()">Adauga</button>
+        </tbody>
+    </table>
+
 </div>

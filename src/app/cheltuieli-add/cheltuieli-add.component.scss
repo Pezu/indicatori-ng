@@ -60,10 +60,9 @@ input[type="text"]:focus {
     height: 36px;
     background-color: transparent;
     width: 200px;
-    margin-left: 165px;
     margin-right: 3%;
     cursor: pointer;
-    margin-top: 15px;
+    margin-bottom: 36px;
     font-family: Roboto;
     font-size: 12px;
 }
@@ -84,6 +83,7 @@ input[type="text"]:focus {
     text-align: center;
     cursor: pointer;
     color: #34bfa3;
+    font-size: 18px;
 }
 .fa:hover {
     color: #9816f4;
@@ -91,4 +91,8 @@ input[type="text"]:focus {
 .autocomplete {
     margin-top: 20px;
     box-shadow: none;
+}
+.table {
+    font-family: Roboto;
+    font-size: 12px;
 }
