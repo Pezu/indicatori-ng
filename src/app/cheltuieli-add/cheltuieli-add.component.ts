@@ -89,7 +89,7 @@ export class CheltuieliAddComponent implements OnInit {
     if (groupId) { output.groupId = groupId; }
     if (categoryId) { output.categoryId = categoryId; }
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
-      console.log(result);
+      this.expensesList = result;
       this.gotResults = true;
     });
   }
@@ -153,6 +153,31 @@ export class CheltuieliAddComponent implements OnInit {
 
   deleteFactura(id: Number) {
     this.apiService.deleteFacturi(id).subscribe();
+    this.readResults();
+  }
+
+  articleName(id: any): String {
+    for (const elem of this.articleList) {
+      if (elem.id === id) { return elem.name; }
+    }
+  }
+
+  unitName(id: any): String {
+    for (const elem of this.unitList) {
+      if (elem.id === id) { return elem.name; }
+    }
+  }
+
+  groupName(id: any): String {
+    for (const elem of this.groupList) {
+      if (elem.id === id) { return elem.name; }
+    }
+  }
+
+  categoryName(id: any): String {
+    for (const elem of this.categoryList) {
+      if (elem.id === id) { return elem.name; }
+    }
   }
 
 }
