@@ -47,4 +47,16 @@ export class ApiService {
     return this.messageService.getRequest('/api/monthly/get/' + String(month) + '/' + String(type_id));
   }
 
+  getPercenatges(articleId: any, unitId: any) {
+    return this.messageService.getRequest('/api/expense/percentage/' + String(unitId) + '/' + String(articleId));
+  }
+
+  fetchFacturi(output: any) {
+    return this.messageService.postRequest('/api/expense/get', output);
+  }
+
+  addFacturi(expense: any) {
+    return this.messageService.postRequest('/api/expense/insert', expense);
+  }
+
 }

@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../services/api.service';
 import { CatalogService } from '../services/catalog.service';
+import { DataKeeperService } from '../services/datakeeper.service';
 
 @Component({
-  selector: 'app-cheltuieli',
-  templateUrl: './cheltuieli.component.html',
-  styleUrls: ['./cheltuieli.component.scss']
+  selector: 'app-cheltuieli-add',
+  templateUrl: './cheltuieli-add.component.html',
+  styleUrls: ['./cheltuieli-add.component.scss']
 })
 
-export class CheltuieliComponent implements OnInit {
+export class CheltuieliAddComponent implements OnInit {
 
   public groupList: any[] = [];
   public selectedGroupCode: String = '';
@@ -20,16 +22,22 @@ export class CheltuieliComponent implements OnInit {
   public selectedArticleId: any;
   public unitList: any[] = [];
   public selectedUnitId: Number;
-  public splitList: any[] = [];
-  public selectedSplitId: any;
-  public setedValue: any;
+  public selectedMonth: any;
+  public gotResults: Boolean = false;
 
-  constructor(private catalogService: CatalogService,
-              private apiService: ApiService) {
-
-  }
+  constructor(private modalService: NgbModal,
+    private apiService: ApiService,
+    private catalogService: CatalogService,
+    private dataKeeper: DataKeeperService) {
+      this.dataKeeper.listen().subscribe((message: any) => {
+        console.log(message);
+        if (message === 'selectedMonthChange') { this.selectedMonth = this.dataKeeper.getData('selectedMonth'); }
+    });
+}
 
   ngOnInit() {
+    this.gotResults = false;
+    this.selectedUnitId = 0;
     this.initialInit();
     this.readData();
   }
@@ -37,9 +45,6 @@ export class CheltuieliComponent implements OnInit {
   readData() {
     this.catalogService.getUnits().subscribe((response: any) => {
       this.unitList = response;
-    });
-    this.catalogService.getSplits().subscribe((response: any) => {
-      this.splitList = response;
     });
     this.catalogService.getGroups().subscribe((response: any) => {
       this.groupList = response;
@@ -63,9 +68,26 @@ export class CheltuieliComponent implements OnInit {
     });
   }
 
+  readResults() {
+    let groupId;
+    let categoryId;
+    for (const elem of this.groupList) {if (elem.code === this.selectedGroupCode) { groupId = elem.id; }}
+    for (const elem of this.categoryList) {if (elem.code === this.selectedCategoryCode) { categoryId = elem.id; }}
+    const output = {
+      month: this.selectedMonth,
+      articleId: this.selectedArticleId,
+      uinitId: this.selectedUnitId,
+      categoryId: categoryId,
+      groupId: groupId
+      };
+    this.apiService.fetchFacturi(output).subscribe((result: any) => {
+      console.log(result);
+      this.gotResults = true;
+    });
+  }
+
   initialInit() {
-    this.selectedUnitId = 0;
-    this.selectedSplitId = 0;
+    this.selectedMonth = this.dataKeeper.getData('selectedMonth');
   }
 
   selectGroupOrCategory(type: Boolean) {
@@ -82,6 +104,15 @@ export class CheltuieliComponent implements OnInit {
     if (this.selectedCategoryCode !== '') {
       this.articleListDisplay = this.articleList.filter(elem => elem.categoryCode === this.selectedCategoryCode);
       }
-    this.initialInit();
+    this.readResults();
   }
+
+  changeArticle() {
+    for (const elem of this.articleList) { if ( elem.id === this.selectedArticleId) {
+      this.selectedCategoryCode = elem.categoryCode;
+      this.selectedGroupCode = elem.groupCode;
+    }}
+    this.readResults();
+  }
+
 }

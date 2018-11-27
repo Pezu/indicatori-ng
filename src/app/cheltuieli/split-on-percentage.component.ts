@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-split-on-percentage',
@@ -9,13 +10,25 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SplitOnPercentageComponent implements OnInit {
 
   @Input() value: any;
+  @Input() articleId: any;
+  @Input() unitId: any;
+  public elementList: any[];
 
-
-  constructor() {
+  constructor(private apiService: ApiService) {
 
   }
 
   ngOnInit() {
-
+    this.readData();
   }
+
+  readData() {
+    this.apiService.getPercenatges(this.articleId, this.unitId).subscribe((response: any) => {
+      this.elementList = response;
+      console.log('aici: ');
+      console.log(response);
+      console.log(this.elementList);
+    });
+  }
+
 }

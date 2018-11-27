@@ -13,7 +13,8 @@
         [items]="articleListDisplay"
         bindLabel="composedName"
         bindValue="id"
-        [(ngModel)]="selectedArticleId">
+        [(ngModel)]="selectedArticleId" 
+        (change)="initialInit()">
     </ng-select>
 
     <div class="divider" *ngIf="selectedArticleId"> </div>
@@ -31,7 +32,7 @@
     <div *ngIf="selectedSplitId">
         <div class="divider"> </div>
         <app-split-on-custom *ngIf="selectedSplitId === '4'" [value]="setedValue" ></app-split-on-custom>
-        <app-split-on-percentage *ngIf="selectedSplitId === '1'" [value]="setedValue"></app-split-on-percentage>
+        <app-split-on-percentage *ngIf="selectedSplitId === '1'" [value]="setedValue" [articleId]="selectedArticleId" [unitId]="selectedUnitId"></app-split-on-percentage>
         <app-split-on-universal *ngIf="selectedSplitId !== '1' && selectedSplitId !== '4'" [value]="setedValue"></app-split-on-universal>
     </div>
 

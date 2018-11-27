@@ -10,6 +10,7 @@ import { SecurityService } from './services/security.service';
 import { CatalogService } from './services/catalog.service';
 import { LoginComponent } from './login/login.component';
 import { CheltuieliComponent } from './cheltuieli/cheltuieli.component';
+import { CheltuieliAddComponent } from './cheltuieli-add/cheltuieli-add.component';
 import { SplitOnCustomComponent } from './cheltuieli/split-on-custom.component';
 import { SplitOnPercentageComponent } from './cheltuieli/split-on-percentage.component';
 import { SplitOnUniversalComponent } from './cheltuieli/split-on-universal.component';
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/userlogin', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent, children: [
     { path: 'cheltuieli', component: CheltuieliComponent },
+    { path: 'facturi', component: CheltuieliAddComponent },
     { path: 'rapoarte', component: RapoarteComponent },
     { path: 'emptyReport', component: EmptyReportComponent },
     { path: 'date_lunare', component: DatelunareComponent }
@@ -57,7 +59,8 @@ const appRoutes: Routes = [
     SimplemodalComponent,
     SplitOnCustomComponent,
     SplitOnPercentageComponent,
-    SplitOnUniversalComponent
+    SplitOnUniversalComponent,
+    CheltuieliAddComponent
   ],
   imports: [
     FormsModule,

@@ -4,9 +4,13 @@
         <span> <i class="fa fa-plus fw"></i> </span>
         Date Lunare
     </div>
+    <div class="item" *ngIf="hasRight('VCHEADD')" [routerLink]="['/home/facturi']">
+        <span> <i class="fa fa-plus fw"></i> </span>
+        Adaugare Cheltuieli
+    </div>
     <div class="item" *ngIf="hasRight('VCHE')" [routerLink]="['/home/cheltuieli']">
         <span> <i class="fa fa-minus fw"></i> </span>
-        Cheltuieli
+        Impartire Cheltuieli
     </div>
     <div class="item" *ngIf="hasRight('VRAP')" [routerLink]="['/home/rapoarte']">
         <span> <i class="fa fa-remove fw"></i> </span>

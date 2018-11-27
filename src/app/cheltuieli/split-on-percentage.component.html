@@ -1,15 +1,9 @@
-percentage &nbsp {{value}}
-<div class="textfield">
-        <label class="label">Unitate 3</label><input type="text"> <input type="text" class="weight" readonly>
-    </div>
-
-    <div class="textfield">
-        <label class="label">Unitate 3</label><input type="text"> <input type="text" class="weight" readonly>
-    </div>
-
-    <div class="textfield">
-        <label class="label">Unitate 3</label><input type="text"> <input type="text" class="weight" readonly>
-    </div>
+percentage: {{value}}, {{articleId}},{{unitId}}
+<div class="textfield" *ngFor="let e of elementList; index as i">
+    <label class="label">{{e.unitName}}</label>
+    <input type="text" name="elementValue_{{i}}" [(ngModel)]="e.value">
+    <input type="text" name="elementWeight_{{i}}" [(ngModel)]="e.weight">
+</div>
 
     <button type="submit" class="salvare">
         Salvare
