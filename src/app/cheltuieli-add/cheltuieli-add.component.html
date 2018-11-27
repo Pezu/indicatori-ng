@@ -42,7 +42,7 @@
         <tbody>
             <tr *ngFor="let exp of expensesList; let i = index">
                 <td>{{i + 1}}</td>
-                <td>{{ articleName(exp.articleId) }}</td>
+                <td>{{ unitName(exp.unitId) }}</td>
                 <td>{{ codeName(exp.groupId, exp.categoryId, exp.articleId) }}</td>
                 <td>{{ articleName(exp.articleId) }}</td>
                 <td>{{ exp.amount }}</td>

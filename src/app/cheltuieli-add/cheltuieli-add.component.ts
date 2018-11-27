@@ -166,6 +166,12 @@ export class CheltuieliAddComponent implements OnInit {
     }
   }
 
+  unitName(id: any): String {
+    for (const elem of this.unitList) {
+      if (elem.id === id) { return elem.name; }
+    }
+  }
+
   codeName(groupId: any, catId: any, artId: any): String {
     let groupCode = '';
     let catCode = '';
