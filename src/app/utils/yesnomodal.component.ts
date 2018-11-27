@@ -3,7 +3,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-yesnomodal',
-  templateUrl: './yesnomodal.component.html'
+  templateUrl: './yesnomodal.component.html',
+  styleUrls: ['./yesnomodal.component.css']
 })
 
 export class YesnomodalComponent {

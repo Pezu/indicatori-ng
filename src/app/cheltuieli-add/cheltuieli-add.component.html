@@ -32,9 +32,8 @@
         <tr>
             <th>#</th>
             <th>Unitate</th>
+            <th>Cod</th>
             <th>Articol</th>
-            <th>Grupa</th>
-            <th>Categorie</th>
             <th>Suma</th>
             <th>Descriere</th>
             <th></th>
@@ -43,10 +42,9 @@
         <tbody>
             <tr *ngFor="let exp of expensesList; let i = index">
                 <td>{{i + 1}}</td>
-                <td>{{ unitName(exp.unitId) }}</td>
                 <td>{{ articleName(exp.articleId) }}</td>
-                <td>{{ groupName(exp.groupId) }}</td>
-                <td>{{ categoryName(exp.categoryId) }}</td>
+                <td>{{ codeName(exp.groupId, exp.categoryId, exp.articleId) }}</td>
+                <td>{{ articleName(exp.articleId) }}</td>
                 <td>{{ exp.amount }}</td>
                 <td>{{ exp.description }}</td>
                 <td><i class="fa fa-trash" (click)="confirmDelete(exp.id)"></i></td>

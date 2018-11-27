@@ -26,7 +26,6 @@ export class CheltuieliAddComponent implements OnInit {
   public unitList: any[] = [];
   public selectedUnitId: any;
   public selectedMonth: any;
-  public gotResults: Boolean = false;
   public expensesList: any;
 
   constructor(private modalService: NgbModal,
@@ -34,16 +33,18 @@ export class CheltuieliAddComponent implements OnInit {
     private catalogService: CatalogService,
     private dataKeeper: DataKeeperService) {
       this.dataKeeper.listen().subscribe((message: any) => {
-        console.log(message);
-        if (message === 'selectedMonthChange') { this.selectedMonth = this.dataKeeper.getData('selectedMonth'); }
+        if (message === 'selectedMonthChange') {
+          this.initialInit();
+          this.readResults();
+        }
     });
 }
 
   ngOnInit() {
-    this.gotResults = false;
     this.selectedUnitId = 0;
     this.initialInit();
     this.readData();
+    this.readResults();
   }
 
   readData() {
@@ -90,11 +91,14 @@ export class CheltuieliAddComponent implements OnInit {
     if (categoryId) { output.categoryId = categoryId; }
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
       this.expensesList = result;
-      this.gotResults = true;
     });
   }
 
   initialInit() {
+    this.selectedArticleId = null;
+    this.selectedUnitId = 0;
+    this.selectedCategoryCode = '';
+    this.selectedGroupCode = '';
     this.selectedMonth = this.dataKeeper.getData('selectedMonth');
   }
 
@@ -162,21 +166,17 @@ export class CheltuieliAddComponent implements OnInit {
     }
   }
 
-  unitName(id: any): String {
-    for (const elem of this.unitList) {
-      if (elem.id === id) { return elem.name; }
-    }
-  }
-
-  groupName(id: any): String {
+  codeName(groupId: any, catId: any, artId: any): String {
+    let groupCode = '';
+    let catCode = '';
     for (const elem of this.groupList) {
-      if (elem.id === id) { return elem.name; }
+      if (elem.id === groupId) { groupCode = elem.code; }
     }
-  }
-
-  categoryName(id: any): String {
     for (const elem of this.categoryList) {
-      if (elem.id === id) { return elem.name; }
+      if (elem.id === catId) { catCode = elem.code; }
+    }
+    for (const elem of this.articleList) {
+      if (elem.id === artId) { return groupCode + '.' + catCode + '.' + elem.code; }
     }
   }
 
