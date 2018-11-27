@@ -73,17 +73,21 @@ export class CheltuieliAddComponent implements OnInit {
   }
 
   readResults() {
-    let groupId;
-    let categoryId;
+    let groupId = 0;
+    let categoryId = 0;
     for (const elem of this.groupList) {if (elem.code === this.selectedGroupCode) { groupId = elem.id; }}
     for (const elem of this.categoryList) {if (elem.code === this.selectedCategoryCode) { categoryId = elem.id; }}
     const output = {
       month: this.selectedMonth,
-      articleId: this.selectedArticleId,
-      uinitId: this.selectedUnitId,
-      categoryId: categoryId,
-      groupId: groupId
+      articleId: null,
+      uinitId: null,
+      categoryId: null,
+      groupId: null
       };
+    if (this.selectedArticleId) { output.articleId = this.selectedArticleId; }
+    if (this.selectedUnitId) { output.uinitId = this.selectedUnitId; }
+    if (groupId) { output.groupId = groupId; }
+    if (categoryId) { output.categoryId = categoryId; }
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
       console.log(result);
       this.gotResults = true;
