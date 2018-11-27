@@ -1,25 +1,21 @@
 <div class="content">
-    <div class="row">
-        <div class="col">
-            Articol
-            <ng-select [items]="articleListDisplay"
-                bindLabel="composedName"
-                bindValue="id"
-                [(ngModel)]="selectedArticleId">
-            </ng-select>
-        </div>
-        <div class="col">
-            Filtre
-            <select class="select" name="unit" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
-                    <option value= ""> - Grup - </option>
-                    <option *ngFor="let g of groupList" [value]="g.code">{{g.name}}</option>
-            </select> 
-            <select class="select" name="unit" [(ngModel)]="selectedCategoryCode" (change)="selectGroupOrCategory(false)">
-                    <option value= ""> - Categorie - </option>
-                    <option *ngFor="let c of categoryListDisplay" [value]="c.code">{{c.name}}</option>
-            </select> 
-        </div>
-    </div>
+
+    <select class="select" name="unit" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
+        <option value= ""> - Grup - </option>
+        <option *ngFor="let g of groupList" [value]="g.code">{{g.name}}</option>
+    </select> 
+    <select class="select" name="unit" [(ngModel)]="selectedCategoryCode" (change)="selectGroupOrCategory(false)">
+            <option value= ""> - Categorie - </option>
+            <option *ngFor="let c of categoryListDisplay" [value]="c.code">{{c.name}}</option>
+    </select> 
+
+    <ng-select class="autocomplete"
+        [items]="articleListDisplay"
+        bindLabel="composedName"
+        bindValue="id"
+        [(ngModel)]="selectedArticleId">
+    </ng-select>
+
     <div class="divider" *ngIf="selectedArticleId"> </div>
 
     <select class="select" name="unit" *ngIf="selectedArticleId" [(ngModel)]="selectedUnitId">

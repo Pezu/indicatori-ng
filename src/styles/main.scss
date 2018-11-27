@@ -3,3 +3,20 @@
 html, body {
     margin: 0px;
 }
+.ng-select .ng-select-container {
+    font-size: 12px;
+    font-family: Roboto;
+    border-radius: 0px;
+    border: 1px solid #34bfa3;
+}
+.ng-select .ng-select-container:hover {
+    border: 1px solid #9816f4;
+}
+.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    border-color: #9816f4;
+    box-shadow: none;
+}
+.ng-option {
+    font-size: 12px;
+    font-family: Roboto;
+}
