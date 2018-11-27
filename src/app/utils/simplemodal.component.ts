@@ -3,7 +3,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-simplemodal',
-  templateUrl: './simplemodal.component.html'
+  templateUrl: './simplemodal.component.html',
+  styleUrls: ['./simplemodal.component.css']
 })
 
 export class SimplemodalComponent implements OnInit {
@@ -14,7 +15,7 @@ export class SimplemodalComponent implements OnInit {
   @Input()
   title: string;
 
-  constructor(public activeModal: NgbActiveModal) { 
+  constructor(public activeModal: NgbActiveModal) {
 
   }
 

@@ -22,7 +22,7 @@ export class AddExpenseModalComponent implements OnInit {
   public selectedCategoryCode: String = '';
   public articleListDisplay: any[] = [];
   public selectedArticleId: any;
-  public selectedUnitId: Number;
+  public selectedUnitId: any;
   public value: any = '';
   public description: any = '';
 
@@ -34,6 +34,7 @@ export class AddExpenseModalComponent implements OnInit {
   ngOnInit() {
     this.categoryListDisplay = this.categoryList;
     this.articleListDisplay = this.articleList;
+    this.selectedUnitId = '';
   }
 
   selectGroupOrCategory(type: Boolean) {
@@ -64,7 +65,7 @@ export class AddExpenseModalComponent implements OnInit {
     if (this.selectedCategoryCode === '') { return false; }
     if (this.selectedGroupCode === '') { return false; }
     if (this.selectedArticleId === null || this.selectedArticleId === 0) { return false; }
-    if (this.selectedUnitId === null || this.selectedUnitId === 0) { return false; }
+    if (this.selectedUnitId === '' || this.selectedUnitId === 0) { return false; }
     if (!Utils.stringCanContainOnlyNumbersOrPoint(this.value) || this.value === '') { return false; }
 
     return true;
