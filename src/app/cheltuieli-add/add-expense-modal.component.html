@@ -1,0 +1,44 @@
+<form #addForm="ngForm" (submit)="doSave()">
+    <div class="modal-header">
+        <h4 class="modal-title">Adaugare Cheltuiala</h4>
+        <button type="button" class="close" aria-label="Close" (click)="doCancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <select class="select" name="group" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
+            <option value= ""> - Grup - </option>
+            <option *ngFor="let g of groupList" [value]="g.code">{{g.name}}</option>
+        </select> 
+        <select class="select" name="category" [(ngModel)]="selectedCategoryCode" (change)="selectGroupOrCategory(false)">
+                <option value= ""> - Categorie - </option>
+                <option *ngFor="let c of categoryListDisplay" [value]="c.code">{{c.name}}</option>
+        </select> 
+        <ng-select class="autocomplete"
+            [items]="articleListDisplay"
+            bindLabel="composedName"
+            bindValue="id"
+            name="entity"
+            [(ngModel)]="selectedArticleId" 
+            (change)="changeArticle()">
+        </ng-select>
+        <select class="select" name="unit" [(ngModel)]="selectedUnitId">
+            <option value= 0> - Unitate - </option>
+            <option *ngFor="let u of unitList" [value]="u.id">{{u.name}}</option>
+        </select>
+        <label class="label">Valoare</label><input type="text" name="selectedValue" class="weight" [(ngModel)]="value">
+        <label class="label">Descriere</label><input type="text" name="description" class="weight" [(ngModel)]="description">
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col">
+                <button class="salvare" (click)="doCancel()" title="Close">
+                    Inapoi
+                </button> 
+                <button type="submit" class="salvare" [disabled]="!validResult()">
+                    Salvare
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

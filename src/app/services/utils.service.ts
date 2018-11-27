@@ -24,6 +24,15 @@ export class Utils {
         }
     }
 
+    static stringCanContainOnlyNumbersOrPoint(entry: String): Boolean {
+        const condition = /^[0-9\.]*$/;
+        if (entry === null || entry === undefined || entry === '') {
+            return true; // empty String
+        } else {
+            return condition.test(entry.valueOf());
+        }
+    }
+
     static stringCanBeWebsite(entry: String): Boolean {
         const condition = /^(http(s?):\/\/)?(www.)?(\w|-)+(\.(\w|-)+)*((\.[a-zA-Z]{2,3})|\.(aero|coop|info|museum|name))+(\/)?$/;
         if (entry === null || entry === undefined || entry === '') {

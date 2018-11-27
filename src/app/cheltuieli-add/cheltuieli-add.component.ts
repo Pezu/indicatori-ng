@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../services/api.service';
 import { CatalogService } from '../services/catalog.service';
 import { DataKeeperService } from '../services/datakeeper.service';
+import { AddExpenseModalComponent } from './add-expense-modal.component';
 
 @Component({
   selector: 'app-cheltuieli-add',
@@ -24,6 +25,7 @@ export class CheltuieliAddComponent implements OnInit {
   public selectedUnitId: Number;
   public selectedMonth: any;
   public gotResults: Boolean = false;
+  public expensesList: any;
 
   constructor(private modalService: NgbModal,
     private apiService: ApiService,
@@ -105,6 +107,18 @@ export class CheltuieliAddComponent implements OnInit {
       this.articleListDisplay = this.articleList.filter(elem => elem.categoryCode === this.selectedCategoryCode);
       }
     this.readResults();
+  }
+
+  addFactura() {
+    const modalRef = this.modalService.open(AddExpenseModalComponent, {'size': 'lg'});
+    modalRef.componentInstance.articleList = this.articleList;
+    modalRef.componentInstance.categoryList = this.categoryList;
+    modalRef.componentInstance.groupList = this.groupList;
+    modalRef.componentInstance.unitList = this.unitList;
+    modalRef.componentInstance.month = this.selectedMonth;
+    modalRef.componentInstance.result.subscribe( (value: any) => {
+        if ( value === 'Saved' ) {
+          this.readResults(); }} );
   }
 
   changeArticle() {

@@ -33,6 +33,7 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { AddExpenseModalComponent } from './cheltuieli-add/add-expense-modal.component';
 
 
 const appRoutes: Routes = [
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     SplitOnCustomComponent,
     SplitOnPercentageComponent,
     SplitOnUniversalComponent,
-    CheltuieliAddComponent
+    CheltuieliAddComponent,
+    AddExpenseModalComponent
   ],
   imports: [
     FormsModule,
@@ -89,7 +91,8 @@ const appRoutes: Routes = [
     Utils
   ],
   entryComponents: [
-    SimplemodalComponent
+    SimplemodalComponent,
+    AddExpenseModalComponent
   ],
   bootstrap: [AppComponent]
 })

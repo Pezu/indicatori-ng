@@ -1,10 +1,10 @@
 <div class="content">
 
-    <select class="select" name="unit" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
+    <select class="select" name="group" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
         <option value= ""> - Grup - </option>
         <option *ngFor="let g of groupList" [value]="g.code">{{g.name}}</option>
     </select> 
-    <select class="select" name="unit" [(ngModel)]="selectedCategoryCode" (change)="selectGroupOrCategory(false)">
+    <select class="select" name="category" [(ngModel)]="selectedCategoryCode" (change)="selectGroupOrCategory(false)">
             <option value= ""> - Categorie - </option>
             <option *ngFor="let c of categoryListDisplay" [value]="c.code">{{c.name}}</option>
     </select> 
@@ -13,6 +13,7 @@
         [items]="articleListDisplay"
         bindLabel="composedName"
         bindValue="id"
+        name="entity"
         [(ngModel)]="selectedArticleId" 
         (change)="initialInit()">
     </ng-select>
