@@ -24,7 +24,7 @@ export class CheltuieliAddComponent implements OnInit {
   public articleListDisplay: any[] = [];
   public selectedArticleId: any;
   public unitList: any[] = [];
-  public selectedUnitId: Number;
+  public selectedUnitId: any;
   public selectedMonth: any;
   public gotResults: Boolean = false;
   public expensesList: any;
@@ -85,7 +85,7 @@ export class CheltuieliAddComponent implements OnInit {
       groupId: null
       };
     if (this.selectedArticleId) { output.articleId = this.selectedArticleId; }
-    if (this.selectedUnitId) { output.uinitId = this.selectedUnitId; }
+    if ((this.selectedUnitId !== '0')) { output.uinitId = this.selectedUnitId; }
     if (groupId) { output.groupId = groupId; }
     if (categoryId) { output.categoryId = categoryId; }
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
