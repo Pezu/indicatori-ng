@@ -27,6 +27,11 @@ export class CheltuieliAddComponent implements OnInit {
   public selectedUnitId: any;
   public selectedMonth: any;
   public expensesList: any;
+  public filterSplited: any = 2;
+  public filterEntered: any = 2;
+  public pageSize: any = 50;
+  public pageNo: any = 1;
+  public pageMax: any = 5;
 
   constructor(private modalService: NgbModal,
     private apiService: ApiService,
@@ -83,7 +88,11 @@ export class CheltuieliAddComponent implements OnInit {
       articleId: null,
       unitId: null,
       categoryId: null,
-      groupId: null
+      groupId: null,
+      root: this.filterEntered,
+      split: this.filterSplited,
+      pageSize: 50,
+      pageNo: 1
       };
     if (this.selectedArticleId) { output.articleId = this.selectedArticleId; }
     if ((Number(this.selectedUnitId) !== 0)) { output.unitId = this.selectedUnitId; }
@@ -105,6 +114,8 @@ export class CheltuieliAddComponent implements OnInit {
   selectGroupOrCategory(type: Boolean) {
     if (type) {
       this.selectedCategoryCode = '';
+    } else {
+      for (const elem of this.categoryList) {if (elem.code === this.selectedCategoryCode) { this.selectedGroupCode = elem.group.code; }}
     }
     this.selectedArticleId = null;
     this.categoryListDisplay = this.categoryList;
@@ -184,6 +195,16 @@ export class CheltuieliAddComponent implements OnInit {
     for (const elem of this.articleList) {
       if (elem.id === artId) { return groupCode + '.' + catCode + '.' + elem.code; }
     }
+  }
+
+  paginaStanga() {
+    this.pageNo = this.pageNo - 1;
+    this.readResults();
+  }
+
+  paginaDreapta() {
+    this.pageNo = this.pageNo + 1;
+    this.readResults();
   }
 
 }

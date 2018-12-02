@@ -40,6 +40,8 @@ export class AddExpenseModalComponent implements OnInit {
   selectGroupOrCategory(type: Boolean) {
     if (type) {
       this.selectedCategoryCode = '';
+    } else {
+      for (const elem of this.categoryList) {if (elem.code === this.selectedCategoryCode) { this.selectedGroupCode = elem.group.code; }}
     }
     this.selectedArticleId = null;
     this.categoryListDisplay = this.categoryList;
