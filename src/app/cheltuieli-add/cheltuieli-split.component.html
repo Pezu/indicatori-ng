@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <div class="title">Imparte cheltuieli</div>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <select class="select" name="split" [(ngModel)]="selectedSplitId">
+        <option value= 0> - Tip de repartizare - </option>
+        <option *ngFor="let s of splitList" [value]="s.id">{{s.name}}</option>
+    </select> 
+    Valoare de impartit:{{value}}
+    <div *ngIf="selectedSplitId">
+        <div class="divider"> </div>
+        <app-split-on-custom *ngIf="selectedSplitId === '4'" [value]="value" ></app-split-on-custom>
+        <app-split-on-percentage *ngIf="selectedSplitId === '1'" [value]="value" [articleId]="articleId" [unitId]="unitId"></app-split-on-percentage>
+        <app-split-on-universal *ngIf="selectedSplitId !== '1' && selectedSplitId !== '4'" [value]="value"></app-split-on-universal>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="salvare" (click)="doSave()">Imparte</button>
+</div>

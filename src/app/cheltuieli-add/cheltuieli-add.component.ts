@@ -4,6 +4,7 @@ import { ApiService } from '../services/api.service';
 import { CatalogService } from '../services/catalog.service';
 import { DataKeeperService } from '../services/datakeeper.service';
 import { AddExpenseModalComponent } from './add-expense-modal.component';
+import { CheltuieliSplitComponent } from './cheltuieli-split.component';
 import { SimplemodalComponent } from '../utils/simplemodal.component';
 import { YesnomodalComponent } from '../utils/yesnomodal.component';
 
@@ -91,8 +92,8 @@ export class CheltuieliAddComponent implements OnInit {
       groupId: null,
       root: this.filterEntered,
       split: this.filterSplited,
-      pageSize: 50,
-      pageNo: 1
+      pageSize: this.pageSize,
+      pageNo: this.pageNo
       };
     if (this.selectedArticleId) { output.articleId = this.selectedArticleId; }
     if ((Number(this.selectedUnitId) !== 0)) { output.unitId = this.selectedUnitId; }
@@ -167,8 +168,9 @@ export class CheltuieliAddComponent implements OnInit {
   }
 
   deleteFactura(id: Number) {
-    this.apiService.deleteFacturi(id).subscribe();
-    this.readResults();
+    this.apiService.deleteFacturi(id).subscribe((result: any) => {
+      this.readResults();
+    });
   }
 
   articleName(id: any): String {
@@ -205,6 +207,15 @@ export class CheltuieliAddComponent implements OnInit {
   paginaDreapta() {
     this.pageNo = this.pageNo + 1;
     this.readResults();
+  }
+
+  split(article: Number, amount: Number, unit: Number) {
+    const modalRef = this.modalService.open(CheltuieliSplitComponent);
+    modalRef.componentInstance.value = amount;
+    modalRef.componentInstance.articleId = article;
+    modalRef.componentInstance.unitId = unit;
+    modalRef.componentInstance.result.subscribe(() => {
+        }, error => {});
   }
 
 }

@@ -54,7 +54,8 @@
             <th style="width:5%">Cod</th>
             <th style="width:35%">Articol</th>
             <th style="width:5%">Suma</th>
-            <th style="width:35%">Descriere</th>
+            <th style="width:30%">Descriere</th>
+            <th style="width:5%"></th>
             <th style="width:5%"></th>
         </tr>
         </thead>
@@ -66,6 +67,7 @@
                 <td>{{ articleName(exp.articleId) }}</td>
                 <td>{{ exp.amount }}</td>
                 <td>{{ exp.description }}</td>
+                <td><i class="fa fa-divide" (click)="split(exp.articleId, exp.amount, exp.unitId)"></i></td>
                 <td><i class="fa fa-trash" (click)="confirmDelete(exp.id)"></i></td>
             </tr>
         </tbody>

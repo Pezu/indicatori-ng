@@ -12,6 +12,7 @@ import { CatalogService } from './services/catalog.service';
 import { LoginComponent } from './login/login.component';
 import { CheltuieliComponent } from './cheltuieli/cheltuieli.component';
 import { CheltuieliAddComponent } from './cheltuieli-add/cheltuieli-add.component';
+import { CheltuieliSplitComponent } from './cheltuieli-add/cheltuieli-split.component';
 import { SplitOnCustomComponent } from './cheltuieli/split-on-custom.component';
 import { SplitOnPercentageComponent } from './cheltuieli/split-on-percentage.component';
 import { SplitOnUniversalComponent } from './cheltuieli/split-on-universal.component';
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
     SplitOnPercentageComponent,
     SplitOnUniversalComponent,
     CheltuieliAddComponent,
+    CheltuieliSplitComponent,
     AddExpenseModalComponent,
     YesnomodalComponent
   ],
@@ -95,7 +97,8 @@ const appRoutes: Routes = [
   entryComponents: [
     SimplemodalComponent,
     AddExpenseModalComponent,
-    YesnomodalComponent
+    YesnomodalComponent,
+    CheltuieliSplitComponent
   ],
   bootstrap: [AppComponent]
 })
