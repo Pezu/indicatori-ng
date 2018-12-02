@@ -30,9 +30,9 @@ export class CheltuieliAddComponent implements OnInit {
   public expensesList: any;
   public filterSplited: any = 2;
   public filterEntered: any = 2;
-  public pageSize: any = 50;
+  public pageSize: any = 10;
   public pageNo: any = 1;
-  public pageMax: any = 5;
+  public pageMax: any;
 
   constructor(private modalService: NgbModal,
     private apiService: ApiService,
@@ -100,7 +100,8 @@ export class CheltuieliAddComponent implements OnInit {
     if (groupId) { output.groupId = groupId; }
     if (categoryId) { output.categoryId = categoryId; }
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
-      this.expensesList = result;
+      this.pageMax = Math.floor(result.count / this.pageSize) + 1;
+      this.expensesList = result.expenses;
     });
   }
 
@@ -210,7 +211,7 @@ export class CheltuieliAddComponent implements OnInit {
   }
 
   split(article: Number, amount: Number, unit: Number) {
-    const modalRef = this.modalService.open(CheltuieliSplitComponent);
+    const modalRef = this.modalService.open(CheltuieliSplitComponent, {'size': 'lg'});
     modalRef.componentInstance.value = amount;
     modalRef.componentInstance.articleId = article;
     modalRef.componentInstance.unitId = unit;

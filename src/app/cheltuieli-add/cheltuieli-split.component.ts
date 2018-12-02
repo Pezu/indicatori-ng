@@ -24,14 +24,14 @@ export class CheltuieliSplitComponent implements OnInit {
 
   }
 
+  ngOnInit() {
+    this.readData();
+  }
+
   readData() {
     this.catalogService.getSplits().subscribe((response: any) => {
       this.splitList = response;
     });
-  }
-
-  ngOnInit() {
-
   }
 
   doSave() {
