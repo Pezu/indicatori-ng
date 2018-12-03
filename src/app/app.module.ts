@@ -10,7 +10,6 @@ import { MessageService } from './services/message.service';
 import { SecurityService } from './services/security.service';
 import { CatalogService } from './services/catalog.service';
 import { LoginComponent } from './login/login.component';
-import { CheltuieliComponent } from './cheltuieli/cheltuieli.component';
 import { CheltuieliAddComponent } from './cheltuieli-add/cheltuieli-add.component';
 import { CheltuieliSplitComponent } from './cheltuieli-add/cheltuieli-split.component';
 import { SplitOnCustomComponent } from './cheltuieli/split-on-custom.component';
@@ -36,18 +35,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AddExpenseModalComponent } from './cheltuieli-add/add-expense-modal.component';
+import { AdminMenuComponent } from './admin/admin-menu.component';
+import { AdminArticolComponent } from './admin/admin-articol.component';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/userlogin', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent, children: [
-    { path: 'cheltuieli', component: CheltuieliComponent },
     { path: 'facturi', component: CheltuieliAddComponent },
     { path: 'rapoarte', component: RapoarteComponent },
     { path: 'emptyReport', component: EmptyReportComponent },
     { path: 'date_lunare', component: DatelunareComponent }
                                                             ] },
   { path: 'userlogin', component: LoginComponent },
+  { path: 'admin', component: AdminMenuComponent },
 ];
 
 @NgModule({
@@ -56,7 +57,6 @@ const appRoutes: Routes = [
     LoginComponent,
     EmptyReportComponent,
     HomePageComponent,
-    CheltuieliComponent,
     RapoarteComponent,
     DatelunareComponent,
     SimplemodalComponent,
@@ -66,7 +66,9 @@ const appRoutes: Routes = [
     CheltuieliAddComponent,
     CheltuieliSplitComponent,
     AddExpenseModalComponent,
-    YesnomodalComponent
+    YesnomodalComponent,
+    AdminMenuComponent,
+    AdminArticolComponent
   ],
   imports: [
     FormsModule,

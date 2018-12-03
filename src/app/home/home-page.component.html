@@ -8,17 +8,16 @@
         <span> <i class="fa fa-plus fw"></i> </span>
         Adaugare Cheltuieli
     </div>
-    <div class="item" *ngIf="hasRight('VCHE')" [routerLink]="['/home/cheltuieli']">
-        <span> <i class="fa fa-minus fw"></i> </span>
-        Impartire Cheltuieli
-    </div>
     <div class="item" *ngIf="hasRight('VRAP')" [routerLink]="['/home/rapoarte']">
         <span> <i class="fa fa-remove fw"></i> </span>
         Rapoarte
     </div>     
     <select class="select" name="selMon" [(ngModel)]="selectedMonth" (change)="changeSelectedMonth()">
             <option *ngFor="let m of monthList" [value]="m.val">{{m.name}}</option>
-    </select>    
+    </select>  
+    <div class="item" *ngIf="hasRight('ADM')" [routerLink]="['/admin']">
+        <a>Admin</a>
+    </div>  
     <div class="user">
         {{loggedUser}} - {{loggedUserRole}}
         <i (click)="doLogOff()" class="fa fa-power-off logout"></i>

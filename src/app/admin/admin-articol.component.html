@@ -1,0 +1,8 @@
+<select class="select" name="group" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
+    <option value= ""> - Grup - </option>
+    <option *ngFor="let g of groupList" [value]="g.code">{{g.name}}</option>
+</select> 
+<select class="select" name="category" [(ngModel)]="selectedCategoryCode" (change)="selectGroupOrCategory(false)">
+        <option value= ""> - Categorie - </option>
+        <option *ngFor="let c of categoryListDisplay" [value]="c.code">{{c.name}}</option>
+</select> 
