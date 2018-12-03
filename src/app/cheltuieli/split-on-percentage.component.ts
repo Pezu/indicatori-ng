@@ -30,41 +30,24 @@ export class SplitOnPercentageComponent implements OnInit {
     this.apiService.getPercenatges(this.articleId, this.unitId).subscribe((response: any) => {
       this.elementList = response;
       this.calculate();
-      console.log('element List: ');
-      console.log(response);
-      console.log(this.weightSum);
     });
   }
 
   calculate() {
       this.modifyWeight = false;
       this.weightSum = 0;
-      for (const elem of this.elementList) { this.weightSum = this.weightSum + elem.weight; }
+      for (const elem of this.elementList) { this.weightSum = this.weightSum + Number(elem.weight); }
       let counter = 0;
       while (counter < this.elementList.length) {
-          this.elementList[counter].value = this.value * this.elementList[counter].weight / this.weightSum;
+          if (this.weightSum) {
+               let val = this.value * Number(this.elementList[counter].weight) / this.weightSum;
+               val = Math.round(val * 100);
+               this.elementList[counter].value = val / 100;
+            } else {
+              this.elementList[counter].value = 0;
+            }
       counter++;
       }
-  }
-
-  changePercent() {
-    this.modifyWeight = true;
-    this.remainingSum = this.value;
-    for (const elem of this.elementList) {
-      this.remainingSum = this.remainingSum - Number(elem.value); console.log(this.remainingSum); }
-    if (Math.abs(this.remainingSum) < 0.000001) { this.remainingSum = 0; }
-  }
-
-  calculateWeight() {
-    this.modifyWeightSaved = true;
-    let smalest = this.value;
-    for (const elem of this.elementList) { if (elem.value < smalest) { smalest = elem.value; } }
-    let counter = 0;
-    while (counter < this.elementList.length) {
-        this.elementList[counter].weight = this.elementList[counter].value / smalest * 100;
-    counter++;
-    }
-    this.calculate();
   }
 
   changeWeight() {
