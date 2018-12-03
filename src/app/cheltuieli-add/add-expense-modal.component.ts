@@ -17,9 +17,9 @@ export class AddExpenseModalComponent implements OnInit {
   @Input() categoryList: any[];
   @Input() groupList: any[];
   @Input() unitList: any[];
-  public selectedGroupCode: String = '';
+  public selectedGroupId: Number = 0;
   public categoryListDisplay: any[] = [];
-  public selectedCategoryCode: String = '';
+  public selectedCategoryId: Number = 0;
   public articleListDisplay: any[] = [];
   public selectedArticleId: any;
   public selectedUnitId: any;
@@ -32,40 +32,73 @@ export class AddExpenseModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoryListDisplay = this.categoryList;
     this.articleListDisplay = this.articleList;
     this.selectedUnitId = '';
   }
 
-  selectGroupOrCategory(type: Boolean) {
-    if (type) {
-      this.selectedCategoryCode = '';
-    } else {
-      for (const elem of this.categoryList) {if (elem.code === this.selectedCategoryCode) { this.selectedGroupCode = elem.group.code; }}
-    }
+  getGroupCodeById(id: Number): String {
+    for (const elem of this.groupList) { if (Number(elem.id) === id) { return elem.code; }}
+    return '';
+  }
+
+  getCategoryCodeById(id: Number): String {
+    for (const elem of this.categoryList) { if (Number(elem.id) === id) { return elem.code; }}
+    return '';
+  }
+
+  getGroupIdByCode(code: String): Number {
+    for (const elem of this.groupList) { if (elem.code === code) { return elem.id; }}
+    return 0;
+  }
+
+  getCategoryIdByCode(codeGr: String, codeCat: String): Number {
+    let groupId = 0;
+    for (const elem of this.groupList) { if (elem.code === codeGr) { groupId = elem.id; }}
+    const categoryList = this.categoryList.filter(elem => Number(elem.group.id) === Number(groupId));
+    for (const elem of categoryList) { if (elem.code === codeCat) { return elem.id; }}
+    return 0;
+  }
+
+  selectGroup() {
+    const groupCode = this.getGroupCodeById(Number(this.selectedGroupId));
     this.selectedArticleId = null;
-    this.categoryListDisplay = this.categoryList;
-    this.articleListDisplay = this.articleList;
-    if (this.selectedGroupCode !== '') {
-      this.categoryListDisplay = this.categoryList.filter(elem => elem.group.code === this.selectedGroupCode);
-      this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === this.selectedGroupCode);
+    this.selectedCategoryId = 0;
+    if (Number(this.selectedGroupId) !== 0) {
+      this.categoryListDisplay = this.categoryList.filter(elem => Number(elem.group.id) === Number(this.selectedGroupId));
+      this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === groupCode);
+    } else {
+      this.articleListDisplay = this.articleList;
+      this.categoryListDisplay = [];
     }
-    if (this.selectedCategoryCode !== '') {
-      this.articleListDisplay = this.articleList.filter(elem => elem.categoryCode === this.selectedCategoryCode);
+  }
+
+  selectCategory() {
+    const groupCode = this.getGroupCodeById(Number(this.selectedGroupId));
+    const categoryCode = this.getCategoryCodeById(Number(this.selectedCategoryId));
+    this.selectedArticleId = null;
+    if (Number(this.selectedCategoryId) !== 0) {
+      this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === groupCode);
+      this.articleListDisplay = this.articleListDisplay.filter(elem => elem.categoryCode === categoryCode);
+      } else {
+        if (Number(this.selectedGroupId) !== 0) {
+          this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === groupCode);
+        } else {
+          this.articleListDisplay = this.articleList;
+        }
       }
   }
 
   changeArticle() {
     for (const elem of this.articleList) { if ( elem.id === this.selectedArticleId) {
-      this.selectedCategoryCode = elem.categoryCode;
-      this.selectedGroupCode = elem.groupCode;
+      this.selectedGroupId = this.getGroupIdByCode(elem.groupCode);
+      this.categoryListDisplay = this.categoryList.filter(filterElem => Number(filterElem.group.id) === Number(this.selectedGroupId));
+      this.selectedCategoryId = this.getCategoryIdByCode(elem.groupCode, elem.categoryCode);
     }}
   }
 
-
   validResult(): Boolean {
-    if (this.selectedCategoryCode === '') { return false; }
-    if (this.selectedGroupCode === '') { return false; }
+    if (Number(this.selectedCategoryId) === 0) { return false; }
+    if (Number(this.selectedGroupId) === 0) { return false; }
     if (this.selectedArticleId === null || this.selectedArticleId === 0) { return false; }
     if (this.selectedUnitId === '' || this.selectedUnitId === 0) { return false; }
     if (!Utils.stringCanContainOnlyNumbersOrPoint(this.value) || this.value === '') { return false; }
@@ -74,15 +107,11 @@ export class AddExpenseModalComponent implements OnInit {
   }
 
   doSave() {
-    let groupId;
-    let categoryId;
-    for (const elem of this.groupList) {if (elem.code === this.selectedGroupCode) { groupId = elem.id; }}
-    for (const elem of this.categoryList) {if (elem.code === this.selectedCategoryCode) { categoryId = elem.id; }}
     const output = {
       unitId: this.selectedUnitId,
       articleId: this.selectedArticleId,
-      groupId: groupId,
-      categoryId: categoryId,
+      groupId: this.selectedGroupId,
+      categoryId: this.selectedCategoryId,
       month: this.month,
       amount: this.value,
       direct: true,

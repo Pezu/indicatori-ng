@@ -1,8 +1,10 @@
-<select class="select" name="group" [(ngModel)]="selectedGroupCode" (change)="selectGroupOrCategory(true)">
-    <option value= ""> - Grup - </option>
-    <option *ngFor="let g of groupList" [value]="g.code">{{g.name}}</option>
+<select class="select" name="group" [(ngModel)]="selectedGroupId" (change)="selectGroup()">
+    <option value= 0> - Grup - </option>
+    <option *ngFor="let g of groupList" [value]="g.id">{{g.name}}</option>
 </select> 
-<select class="select" name="category" [(ngModel)]="selectedCategoryCode" (change)="selectGroupOrCategory(false)">
-        <option value= ""> - Categorie - </option>
-        <option *ngFor="let c of categoryListDisplay" [value]="c.code">{{c.name}}</option>
-</select> 
+<select class="select" name="category" [(ngModel)]="selectedCategoryId" (change)="selectCategory()">
+        <option value= 0> - Categorie - </option>
+        <option *ngFor="let c of categoryListDisplay" [value]="c.id">{{c.name}}</option>
+</select>
+<input type="text" name="articleName" [(ngModel)]="articleName" *ngIf='canAddArticle'>
+<button type="button" class="salvare" (click)="doSave()" *ngIf='canAddArticle' [disabled]="!valid()">Adauga</button>

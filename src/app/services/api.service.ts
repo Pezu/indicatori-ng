@@ -83,4 +83,8 @@ export class ApiService {
     return this.messageService.getRequest('/api/expense/delete/' + expenseId);
   }
 
+  sendNewArticle(object: any) {
+    return this.messageService.postRequest('/api/admin/article', object);
+  }
+
 }

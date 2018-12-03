@@ -17,10 +17,10 @@ import { YesnomodalComponent } from '../utils/yesnomodal.component';
 export class CheltuieliAddComponent implements OnInit {
 
   public groupList: any[] = [];
-  public selectedGroupCode: String = '';
+  public selectedGroupId: any = 0;
   public categoryList: any[] = [];
   public categoryListDisplay: any[] = [];
-  public selectedCategoryCode: String = '';
+  public selectedCategoryId: any = 0;
   public articleList: any[] = [];
   public articleListDisplay: any[] = [];
   public selectedArticleId: any;
@@ -62,10 +62,10 @@ export class CheltuieliAddComponent implements OnInit {
     });
     this.catalogService.getCategories().subscribe((response: any) => {
       this.categoryList = response;
-      this.categoryListDisplay = this.categoryList;
     });
     this.apiService.getGrupaCategorieArticol().subscribe((response) => {
       this.articleList = response;
+      console.log(response);
       let counter = 0;
       while (counter < this.articleList.length) {
           this.articleList[counter].composedName =
@@ -80,10 +80,6 @@ export class CheltuieliAddComponent implements OnInit {
   }
 
   readResults() {
-    let groupId = 0;
-    let categoryId = 0;
-    for (const elem of this.groupList) {if (elem.code === this.selectedGroupCode) { groupId = elem.id; }}
-    for (const elem of this.categoryList) {if (elem.code === this.selectedCategoryCode) { categoryId = elem.id; }}
     const output = {
       month: this.selectedMonth,
       articleId: null,
@@ -97,8 +93,8 @@ export class CheltuieliAddComponent implements OnInit {
       };
     if (this.selectedArticleId) { output.articleId = this.selectedArticleId; }
     if ((Number(this.selectedUnitId) !== 0)) { output.unitId = this.selectedUnitId; }
-    if (groupId) { output.groupId = groupId; }
-    if (categoryId) { output.categoryId = categoryId; }
+    if (Number(this.selectedGroupId) !== 0) { output.groupId = this.selectedGroupId; }
+    if (Number(this.selectedCategoryId) !== 0) { output.categoryId = this.selectedCategoryId; }
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
       this.pageMax = Math.floor(result.count / this.pageSize) + 1;
       this.expensesList = result.expenses;
@@ -108,27 +104,74 @@ export class CheltuieliAddComponent implements OnInit {
   initialInit() {
     this.selectedArticleId = null;
     this.selectedUnitId = 0;
-    this.selectedCategoryCode = '';
-    this.selectedGroupCode = '';
+    this.selectedCategoryId = 0;
+    this.selectedGroupId = 0;
     this.selectedMonth = this.dataKeeper.getData('selectedMonth');
   }
 
-  selectGroupOrCategory(type: Boolean) {
-    if (type) {
-      this.selectedCategoryCode = '';
-    } else {
-      for (const elem of this.categoryList) {if (elem.code === this.selectedCategoryCode) { this.selectedGroupCode = elem.group.code; }}
-    }
+  getGroupCodeById(id: Number): String {
+    for (const elem of this.groupList) { if (Number(elem.id) === id) { return elem.code; }}
+    return '';
+  }
+
+  getCategoryCodeById(id: Number): String {
+    for (const elem of this.categoryList) { if (Number(elem.id) === id) { return elem.code; }}
+    return '';
+  }
+
+  getGroupIdByCode(code: String): Number {
+    for (const elem of this.groupList) { if (elem.code === code) { return elem.id; }}
+    return 0;
+  }
+
+  getCategoryIdByCode(codeGr: String, codeCat: String): Number {
+    let groupId = 0;
+    for (const elem of this.groupList) { if (elem.code === codeGr) { groupId = elem.id; }}
+    console.log(groupId);
+    const categoryList = this.categoryList.filter(elem => Number(elem.group.id) === Number(groupId));
+    console.log(categoryList);
+    console.log(codeCat);
+    for (const elem of categoryList) { if (elem.code === codeCat) { return elem.id; }}
+    return 0;
+  }
+
+  selectGroup() {
+    const groupCode = this.getGroupCodeById(Number(this.selectedGroupId));
     this.selectedArticleId = null;
-    this.categoryListDisplay = this.categoryList;
-    this.articleListDisplay = this.articleList;
-    if (this.selectedGroupCode !== '') {
-      this.categoryListDisplay = this.categoryList.filter(elem => elem.group.code === this.selectedGroupCode);
-      this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === this.selectedGroupCode);
+    this.selectedCategoryId = 0;
+    if (Number(this.selectedGroupId) !== 0) {
+      this.categoryListDisplay = this.categoryList.filter(elem => Number(elem.group.id) === Number(this.selectedGroupId));
+      this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === groupCode);
+    } else {
+      this.articleListDisplay = this.articleList;
+      this.categoryListDisplay = [];
     }
-    if (this.selectedCategoryCode !== '') {
-      this.articleListDisplay = this.articleList.filter(elem => elem.categoryCode === this.selectedCategoryCode);
+    this.readResults();
+  }
+
+  selectCategory() {
+    const groupCode = this.getGroupCodeById(Number(this.selectedGroupId));
+    const categoryCode = this.getCategoryCodeById(Number(this.selectedCategoryId));
+    this.selectedArticleId = null;
+    if (Number(this.selectedCategoryId) !== 0) {
+      this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === groupCode);
+      this.articleListDisplay = this.articleListDisplay.filter(elem => elem.categoryCode === categoryCode);
+      } else {
+        if (Number(this.selectedGroupId) !== 0) {
+          this.articleListDisplay = this.articleList.filter(elem => elem.groupCode === groupCode);
+        } else {
+          this.articleListDisplay = this.articleList;
+        }
       }
+      this.readResults();
+  }
+
+  changeArticle() {
+    for (const elem of this.articleList) { if ( elem.id === this.selectedArticleId) {
+      this.selectedGroupId = this.getGroupIdByCode(elem.groupCode);
+      this.categoryListDisplay = this.categoryList.filter(filterElem => Number(filterElem.group.id) === Number(this.selectedGroupId));
+      this.selectedCategoryId = this.getCategoryIdByCode(elem.groupCode, elem.categoryCode);
+    }}
     this.readResults();
   }
 
@@ -149,14 +192,6 @@ export class CheltuieliAddComponent implements OnInit {
           modalRef1.componentInstance.message = 'A survenit o eroare la salvarea datelor';
         }
       });
-  }
-
-  changeArticle() {
-    for (const elem of this.articleList) { if ( elem.id === this.selectedArticleId) {
-      this.selectedCategoryCode = elem.categoryCode;
-      this.selectedGroupCode = elem.groupCode;
-    }}
-    this.readResults();
   }
 
   confirmDelete(id: Number) {
