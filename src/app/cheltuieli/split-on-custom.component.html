@@ -1,17 +1,14 @@
-<div class="row" *ngIf="modifyWeight">
-        <div class="col">
-            Suma ramasa de alocat:{{remainingSum}}
-            <button type="button" class="salvare" (click)="calculateWeight()" [disabled]="remainingSum!==0">Calculeaza Ponderi</button>
-            <button type="button" class="salvare" (click)="calculate()">Renunta</button>
+<div class="row" *ngIf="!canSave">
+    <div class="col">
+        Suma ramasa de alocat:{{remainingSum}}
+        <button type="button" class="salvare" (click)="readData()">Renunta</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="textfield" *ngFor="let e of elementList; index as i">
+            <label class="label">{{e.unitName}}</label>
+            <input type="text" name="elementValue_{{i}}" [(ngModel)]="e.value" (change)=calculateRemainingSum()>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <div class="textfield" *ngFor="let e of elementList; index as i">
-                <label class="label">{{e.unitName}}</label>
-                <input type="text" name="elementValue_{{i}}" [(ngModel)]="e.value" (change)=changePercent()>
-                <input type="text" name="elementWeight_{{i}}" [(ngModel)]="e.weight" (change)=changeWeight()> 
-            </div>
-                <i class="fa fa-save" *ngIf="modifyWeightSaved" (click)="saveWeight()"></i>
-        </div>
-    </div>
+</div>

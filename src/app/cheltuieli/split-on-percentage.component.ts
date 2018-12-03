@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -12,7 +12,8 @@ export class SplitOnPercentageComponent implements OnInit {
   @Input() value: any;
   @Input() articleId: any;
   @Input() unitId: any;
-  public elementList: any[];
+  @Input() elementList: any[];
+  @Output() saveOk = new EventEmitter<Boolean>();
   public weightSum: any;
   public modifyWeight: Boolean = false;
   public modifyWeightSaved: Boolean = false;
@@ -27,8 +28,10 @@ export class SplitOnPercentageComponent implements OnInit {
   }
 
   readData() {
-    this.apiService.getPercenatges(this.articleId, this.unitId).subscribe((response: any) => {
-      this.elementList = response;
+    this.elementList.slice(0, this.elementList.length);
+    this.apiService.getPercenatgeSplit(this.articleId, this.unitId).subscribe((response: any) => {
+      for (const elem of response) { this.elementList.push(elem); }
+
       this.calculate();
     });
   }
@@ -48,6 +51,7 @@ export class SplitOnPercentageComponent implements OnInit {
             }
       counter++;
       }
+      if (this.weightSum) { this.saveOk.emit(true); } else { this.saveOk.emit(false); }
   }
 
   changeWeight() {
@@ -56,7 +60,14 @@ export class SplitOnPercentageComponent implements OnInit {
   }
 
   saveWeight() {
-    this.modifyWeightSaved = false;
+    let counter = 0;
+    while (counter < this.elementList.length) {
+      this.elementList[counter].updateWeight = true;
+    counter++;
+    }
+    this.apiService.sendPercenatgeSplit(this.elementList).subscribe((result: any) => {
+      this.modifyWeightSaved = false;
+    });
   }
 
 }

@@ -47,8 +47,28 @@ export class ApiService {
     return this.messageService.getRequest('/api/monthly/get/' + String(month) + '/' + String(type_id));
   }
 
-  getPercenatges(articleId: any, unitId: any) {
+  getPercenatgeSplit(articleId: any, unitId: any) {
     return this.messageService.getRequest('/api/expense/percentage/' + String(unitId) + '/' + String(articleId));
+  }
+
+  sendPercenatgeSplit(object: any) {
+    return this.messageService.postRequest('/api/expense/percentage/', object);
+  }
+
+  getManualSplit(articleId: any, unitId: any) {
+    return this.messageService.getRequest('/api/expense/manual/' + String(unitId) + '/' + String(articleId));
+  }
+
+  sendManualSplit(object: any) {
+    return this.messageService.postRequest('/api/expense/manual/', object);
+  }
+
+  getUniversalSplit(articleId: any, unitId: any) {
+    return this.messageService.getRequest('/api/expense/universal/' + String(unitId) + '/' + String(articleId));
+  }
+
+  sendUniversalSplit(object: any) {
+    return this.messageService.postRequest('/api/expense/universal/', object);
   }
 
   fetchFacturi(output: any) {
