@@ -98,6 +98,8 @@ export class CheltuieliAddComponent implements OnInit {
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
       this.pageMax = Math.floor(result.count / this.pageSize) + 1;
       this.expensesList = result.expenses;
+      console.log('expenses:');
+      console.log(result.expenses);
     });
   }
 
@@ -127,10 +129,7 @@ export class CheltuieliAddComponent implements OnInit {
   getCategoryIdByCode(codeGr: String, codeCat: String): Number {
     let groupId = 0;
     for (const elem of this.groupList) { if (elem.code === codeGr) { groupId = elem.id; }}
-    console.log(groupId);
     const categoryList = this.categoryList.filter(elem => Number(elem.group.id) === Number(groupId));
-    console.log(categoryList);
-    console.log(codeCat);
     for (const elem of categoryList) { if (elem.code === codeCat) { return elem.id; }}
     return 0;
   }
@@ -245,11 +244,10 @@ export class CheltuieliAddComponent implements OnInit {
     this.readResults();
   }
 
-  split(article: Number, amount: Number, unit: Number) {
+  split(exp: any) {
     const modalRef = this.modalService.open(CheltuieliSplitComponent, {'size': 'lg'});
-    modalRef.componentInstance.value = amount;
-    modalRef.componentInstance.articleId = article;
-    modalRef.componentInstance.unitId = unit;
+    modalRef.componentInstance.month = this.selectedMonth;
+    modalRef.componentInstance.exp = exp;
     modalRef.componentInstance.result.subscribe(() => {
         }, error => {});
   }

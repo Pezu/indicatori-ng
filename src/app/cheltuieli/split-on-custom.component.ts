@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ApiService } from '../services/api.service';
+import { DataKeeperService } from '../services/datakeeper.service';
 @Component({
   selector: 'app-split-on-custom',
   templateUrl: './split-on-custom.component.html',
@@ -9,36 +9,36 @@ import { ApiService } from '../services/api.service';
 export class SplitOnCustomComponent implements OnInit {
 
   @Input() value: any;
-  @Input() articleId: any;
-  @Input() unitId: any;
-  @Input() elementList: any[];
+  @Input() splitObject: any;
   @Output() saveOk = new EventEmitter<Boolean>();
 
   public remainingSum: any;
   public canSave: Boolean;
-  constructor(private apiService: ApiService) {
+  public storedChildren: any[];
 
+  constructor(private dataKeeper: DataKeeperService) {
+    this.dataKeeper.listen().subscribe((message: any) => {
+      if (message === 'splitDetailsLoaded') {
+        this.storedChildren = this.splitObject.children;
+      }
+  });
   }
 
   ngOnInit() {
-    this.readData();
+
   }
 
   readData() {
-    this.elementList.slice(0, this.elementList.length);
-    this.apiService.getManualSplit(this.articleId, this.unitId).subscribe((response: any) => {
-      for (const elem of response) { this.elementList.push(elem); }
-      this.calculateRemainingSum();
-      console.log('element List: ');
-      console.log(response);
-    });
+    this.splitObject.children.slice(0, this.splitObject.children.length);
+    for (const elem of this.storedChildren) { this.splitObject.children.push(elem); }
+
   }
 
   calculateRemainingSum() {
     let sum = 0;
     let counter = 0;
-    while (counter < this.elementList.length) {
-      sum = sum + Number(this.elementList[counter].value);
+    while (counter < this.splitObject.children.length) {
+      sum = sum + Number(this.splitObject.children[counter].value);
     counter++;
     }
     this.remainingSum = this.value - sum;

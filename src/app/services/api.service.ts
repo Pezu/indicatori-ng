@@ -87,4 +87,7 @@ export class ApiService {
     return this.messageService.postRequest('/api/admin/article', object);
   }
 
+  getSplitDetails(object: any) {
+    return this.messageService.postRequest('/api/expense/split', object);
+  }
 }

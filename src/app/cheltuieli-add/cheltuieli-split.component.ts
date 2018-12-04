@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { CatalogService } from '../services/catalog.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DataKeeperService } from '../services/datakeeper.service';
 
 @Component({
   selector: 'app-cheltuieli-split',
@@ -12,44 +13,64 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class CheltuieliSplitComponent implements OnInit {
 
   public selectedSplitCode: any = 'NUL';
+  public toSelectedSplitCode:  any = 'NUL';
   public splitList: any[];
-  public elementList: any[] = [];
+  public splitObject: any;
   public canSave: Boolean;
-  @Input() value: Number;
-  @Input() articleId: any;
-  @Input() unitId: any;
+  public value: Number;
+  @Input() exp: any;
+  @Input() month: any;
   @Output() result: EventEmitter<boolean> = new EventEmitter();
 
   constructor( private apiService: ApiService,
                private catalogService: CatalogService,
-               public activeModal: NgbActiveModal) {
+               public activeModal: NgbActiveModal,
+               private dataKeeper: DataKeeperService) {
 
   }
 
   ngOnInit() {
+    this.value = this.exp.amount;
     this.canSave = true;
     this.readData();
   }
 
   readData() {
     this.catalogService.getSplits().subscribe((response: any) => {
-      console.log(response);
       this.splitList = response;
+      console.log(response);
+    });
+  }
+
+  changeSplit() {
+    this.apiService.getSplitDetails({
+      parentUnitId: this.exp.unitId,
+      expenseId: this.exp.id,
+      articleId: this.exp.articleId,
+      splitCode: this.toSelectedSplitCode.code,
+      splitId: this.toSelectedSplitCode.id,
+      month: this.month,
+      categoryId: this.exp.categoryId,
+      groupId: this.exp.groupId
+    }).subscribe((result: any) => {
+      this.splitObject = result;
+      this.selectedSplitCode =  this.toSelectedSplitCode;
+      this.dataKeeper.shareMessage('splitDetailsLoaded');
     });
   }
 
   doSave() {
     if (this.selectedSplitCode === 'PRC') {
-      let counter = 0;
-      while (counter < this.elementList.length) {
-          this.elementList[counter].updateWeight = false;
-          counter++;
-        }
-      this.apiService.sendPercenatgeSplit(this.elementList).subscribe((result: any) => {
-          this.ok();
-      });
+      // let counter = 0;
+      // while (counter < this.elementList.length) {
+      //     this.elementList[counter].updateWeight = false;
+      //     counter++;
+      //   }
+      // this.apiService.sendPercenatgeSplit(this.elementList).subscribe((result: any) => {
+      //     this.ok();
+      // });
     }
-    console.log(this.elementList);
+    console.log(this.splitObject);
     console.log(this.canSave);
   }
 

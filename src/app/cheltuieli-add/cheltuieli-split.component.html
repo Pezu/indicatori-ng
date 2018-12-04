@@ -5,16 +5,16 @@
     </button>
 </div>
 <div class="modal-body">
-    <select class="select" name="split" [(ngModel)]="selectedSplitCode">
+    <select class="select" name="split" [(ngModel)]="toSelectedSplitCode" (change)="changeSplit()">
         <option value= 'NUL'> - Tip de repartizare - </option>
         <option *ngFor="let s of splitList" [value]="s.code">{{s.name}}</option>
-    </select> 
+    </select>
     Valoare de impartit:{{value}}
     <div *ngIf="selectedSplitCode !== 'NUL'">
         <div class="divider"> </div>
-        <app-split-on-custom *ngIf="selectedSplitCode === 'MAN'" [value]="value" [articleId]="articleId" [unitId]="unitId" [elementList]="elementList" (saveOk)="receiveMessage($event)"> </app-split-on-custom>
-        <app-split-on-percentage *ngIf="selectedSplitCode === 'PRC'" [value]="value" [articleId]="articleId" [unitId]="unitId" [elementList]="elementList" (saveOk)="receiveMessage($event)"></app-split-on-percentage>
-        <app-split-on-universal *ngIf="selectedSplitCode !== 'MAN' && selectedSplitCode !== 'PRC'" [value]="value" [articleId]="articleId" [unitId]="unitId" [elementList]="elementList" (saveOk)="receiveMessage($event)"></app-split-on-universal>
+        <app-split-on-custom *ngIf="selectedSplitCode === 'MAN'" [value]="value" [splitObject]="splitObject" (saveOk)="receiveMessage($event)"> </app-split-on-custom>
+        <app-split-on-percentage *ngIf="selectedSplitCode === 'PRC'" [value]="value" [splitObject]="splitObject" (saveOk)="receiveMessage($event)"></app-split-on-percentage>
+        <app-split-on-universal *ngIf="selectedSplitCode !== 'MAN' && selectedSplitCode !== 'PRC'" [splitObject]="value" [splitObject]="splitObject" (saveOk)="receiveMessage($event)"></app-split-on-universal>
     </div>
 </div>
 <div class="modal-footer">
