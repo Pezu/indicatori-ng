@@ -43,40 +43,39 @@ export class CheltuieliSplitComponent implements OnInit {
   }
 
   changeSplit() {
-    this.apiService.getSplitDetails({
+    let split = {id: 0, code: '', name: ''};
+    for (const elem of this.splitList) { if (elem.code === this.toSelectedSplitCode) { split = elem; }}
+     this.apiService.getSplitDetails({
       parentUnitId: this.exp.unitId,
       expenseId: this.exp.id,
       articleId: this.exp.articleId,
-      splitCode: this.toSelectedSplitCode.code,
-      splitId: this.toSelectedSplitCode.id,
+      splitCode: split.code,
+      splitId: split.id,
       month: this.month,
       categoryId: this.exp.categoryId,
       groupId: this.exp.groupId
     }).subscribe((result: any) => {
       this.splitObject = result;
+      let counter = 0;
+      while (counter < this.splitObject.children.length) {
+          if (this.splitObject.children[counter].weight === null) { this.splitObject.children[counter].weight = 0; }
+      counter++;
+      }
+      console.log(this.splitObject);
       this.selectedSplitCode =  this.toSelectedSplitCode;
       this.dataKeeper.shareMessage('splitDetailsLoaded');
     });
   }
 
   doSave() {
-    if (this.selectedSplitCode === 'PRC') {
-      // let counter = 0;
-      // while (counter < this.elementList.length) {
-      //     this.elementList[counter].updateWeight = false;
-      //     counter++;
-      //   }
-      // this.apiService.sendPercenatgeSplit(this.elementList).subscribe((result: any) => {
-      //     this.ok();
-      // });
-    }
-    console.log(this.splitObject);
-    console.log(this.canSave);
-  }
-
-  ok() {
-    this.result.emit(true);
-    this.activeModal.close();
+    this.splitObject.updateWeight = false;
+    this.apiService.setSplitDetails(this.splitObject).subscribe((result: any) => {
+      this.result.emit(true);
+      this.activeModal.close();
+    }, error => {
+      this.result.emit(false);
+      this.activeModal.close();
+    });
   }
 
   cancel() {
@@ -86,6 +85,15 @@ export class CheltuieliSplitComponent implements OnInit {
 
   receiveMessage($event) {
     this.canSave = $event;
+  }
+
+  valid(): Boolean {
+    let sum = 0;
+    if (this.splitObject) {
+      for (const elem of this.splitObject.children) { sum = sum + Number(elem.value); }
+      if (Math.abs(Number(this.value) - sum) > 0.001) { return false; }
+    } else { return false; }
+    return true;
   }
 
 }

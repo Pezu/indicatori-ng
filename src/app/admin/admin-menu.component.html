@@ -2,14 +2,14 @@
     <button class="user"> Pagina Principala </button>
 </div>
 <ngb-tabset>
+    <ngb-tab title="Utilizatori">
+        <ng-template ngbTabContent>
+            <p><app-admin-user ></app-admin-user></p>
+        </ng-template>
+    </ngb-tab>
     <ngb-tab title="Articol">
         <ng-template ngbTabContent>
             <p><app-admin-articol></app-admin-articol></p>
-        </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Other">
-        <ng-template ngbTabContent>
-            <p><app-admin-articol ></app-admin-articol></p>
         </ng-template>
     </ngb-tab>
 </ngb-tabset>

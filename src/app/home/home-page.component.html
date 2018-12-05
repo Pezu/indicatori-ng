@@ -11,6 +11,10 @@
     <div class="item" *ngIf="hasRight('VRAP')" [routerLink]="['/home/rapoarte']">
         <span> <i class="fa fa-remove fw"></i> </span>
         Rapoarte
+    </div>
+    <div class="item" *ngIf="hasRight('INV')" [routerLink]="['/home/inventar']">
+        <span> <i class="fa fa-car fw"></i> </span>
+        Inventar
     </div>     
     <select class="select" name="selMon" [(ngModel)]="selectedMonth" (change)="changeSelectedMonth()">
             <option *ngFor="let m of monthList" [value]="m.val">{{m.name}}</option>

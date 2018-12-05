@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DataKeeperService } from '../services/datakeeper.service';
 
 @Component({
   selector: 'app-split-on-universal',
@@ -14,15 +13,11 @@ export class SplitOnUniversalComponent implements OnInit {
   @Output() saveOk = new EventEmitter<Boolean>();
   public weightSum: any;
 
-  constructor(private dataKeeper: DataKeeperService) {
-    this.dataKeeper.listen().subscribe((message: any) => {
-      if (message === 'splitDetailsLoaded') {
-        this.calculate();
-      }
-  });
+  constructor() {
   }
 
   ngOnInit() {
+    this.calculate();
   }
 
   calculate() {
@@ -32,7 +27,7 @@ export class SplitOnUniversalComponent implements OnInit {
     while (counter < this.splitObject.children.length) {
              let val = this.value * Number(this.splitObject.children[counter].weight) / this.weightSum;
              val = Math.round(val * 100);
-             this.splitObject.childrent[counter].value = val / 100;
+             this.splitObject.children[counter].value = val / 100;
     counter++;
     }
     if (this.weightSum) { this.saveOk.emit(true); } else { this.saveOk.emit(false); }

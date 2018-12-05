@@ -14,9 +14,9 @@
         <div class="divider"> </div>
         <app-split-on-custom *ngIf="selectedSplitCode === 'MAN'" [value]="value" [splitObject]="splitObject" (saveOk)="receiveMessage($event)"> </app-split-on-custom>
         <app-split-on-percentage *ngIf="selectedSplitCode === 'PRC'" [value]="value" [splitObject]="splitObject" (saveOk)="receiveMessage($event)"></app-split-on-percentage>
-        <app-split-on-universal *ngIf="selectedSplitCode !== 'MAN' && selectedSplitCode !== 'PRC'" [splitObject]="value" [splitObject]="splitObject" (saveOk)="receiveMessage($event)"></app-split-on-universal>
+        <app-split-on-universal *ngIf="selectedSplitCode !== 'MAN' && selectedSplitCode !== 'PRC'" [value]="value" [splitObject]="splitObject" (saveOk)="receiveMessage($event)"></app-split-on-universal>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="salvare" (click)="doSave()" [disabled]="!canSave">Imparte</button>
+    <button type="button" class="salvare" (click)="doSave()" [disabled]="!canSave || !valid()">Imparte</button>
 </div>

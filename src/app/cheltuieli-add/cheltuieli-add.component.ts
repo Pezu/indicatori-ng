@@ -7,7 +7,7 @@ import { AddExpenseModalComponent } from './add-expense-modal.component';
 import { CheltuieliSplitComponent } from './cheltuieli-split.component';
 import { SimplemodalComponent } from '../utils/simplemodal.component';
 import { YesnomodalComponent } from '../utils/yesnomodal.component';
-
+import { CheltuieliViewComponent } from './cheltuieli-view.component';
 @Component({
   selector: 'app-cheltuieli-add',
   templateUrl: './cheltuieli-add.component.html',
@@ -248,8 +248,24 @@ export class CheltuieliAddComponent implements OnInit {
     const modalRef = this.modalService.open(CheltuieliSplitComponent, {'size': 'lg'});
     modalRef.componentInstance.month = this.selectedMonth;
     modalRef.componentInstance.exp = exp;
-    modalRef.componentInstance.result.subscribe(() => {
-        }, error => {});
+    modalRef.componentInstance.result.subscribe((result: Boolean) => {
+        if (result) {
+          const modalRef1 = this.modalService.open(SimplemodalComponent);
+            modalRef1.componentInstance.title = 'Impartire Cheltuiala';
+            modalRef1.componentInstance.message = 'Suma a fost impartita cu succes';
+        } else {
+          const modalRef1 = this.modalService.open(SimplemodalComponent);
+          modalRef1.componentInstance.title = 'Impartire Cheltuiala';
+          modalRef1.componentInstance.message = 'A survenit o eroare';
+        }
+        });
+  }
+
+  viewSplit(exp: any) {
+    const modalRef = this.modalService.open(CheltuieliViewComponent, {'size': 'lg'});
+    modalRef.componentInstance.exp = exp;
+    modalRef.componentInstance.result.subscribe((result: Boolean) => {
+        });
   }
 
 }

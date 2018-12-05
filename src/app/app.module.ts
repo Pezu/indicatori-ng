@@ -12,6 +12,7 @@ import { CatalogService } from './services/catalog.service';
 import { LoginComponent } from './login/login.component';
 import { CheltuieliAddComponent } from './cheltuieli-add/cheltuieli-add.component';
 import { CheltuieliSplitComponent } from './cheltuieli-add/cheltuieli-split.component';
+import { CheltuieliViewComponent } from './cheltuieli-add/cheltuieli-view.component';
 import { SplitOnCustomComponent } from './cheltuieli/split-on-custom.component';
 import { SplitOnPercentageComponent } from './cheltuieli/split-on-percentage.component';
 import { SplitOnUniversalComponent } from './cheltuieli/split-on-universal.component';
@@ -19,7 +20,7 @@ import { RapoarteComponent } from './reports/rapoarte.component';
 import { DatelunareComponent } from './dateLunare/dateLunare.component';
 import { HomePageComponent } from './home/home-page.component';
 import { EmptyReportComponent } from './reports/empty-report.component';
-import {NgSelectModule} from '@ng-select/ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import {
   NgbAccordionModule,
   NgbAlertModule,
@@ -37,6 +38,9 @@ import { AppComponent } from './app.component';
 import { AddExpenseModalComponent } from './cheltuieli-add/add-expense-modal.component';
 import { AdminMenuComponent } from './admin/admin-menu.component';
 import { AdminArticolComponent } from './admin/admin-articol.component';
+import { AdminUserComponent } from './admin/admin-user.component';
+import { InventarComponent } from './inventar/inventar.component';
+
 
 
 const appRoutes: Routes = [
@@ -44,7 +48,8 @@ const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent, children: [
     { path: 'facturi', component: CheltuieliAddComponent },
     { path: 'rapoarte', component: RapoarteComponent },
-    { path: 'emptyReport', component: EmptyReportComponent },
+    { path: 'inventar', component: InventarComponent },
+    // { path: 'emptyReport', component: EmptyReportComponent },
     { path: 'date_lunare', component: DatelunareComponent }
                                                             ] },
   { path: 'userlogin', component: LoginComponent },
@@ -68,7 +73,10 @@ const appRoutes: Routes = [
     AddExpenseModalComponent,
     YesnomodalComponent,
     AdminMenuComponent,
-    AdminArticolComponent
+    AdminArticolComponent,
+    CheltuieliViewComponent,
+    AdminUserComponent,
+    InventarComponent
   ],
   imports: [
     FormsModule,
@@ -100,7 +108,8 @@ const appRoutes: Routes = [
     SimplemodalComponent,
     AddExpenseModalComponent,
     YesnomodalComponent,
-    CheltuieliSplitComponent
+    CheltuieliSplitComponent,
+    CheltuieliViewComponent
   ],
   bootstrap: [AppComponent]
 })

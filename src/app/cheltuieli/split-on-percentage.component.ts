@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { DataKeeperService } from '../services/datakeeper.service';
 
 @Component({
   selector: 'app-split-on-percentage',
@@ -18,16 +17,11 @@ export class SplitOnPercentageComponent implements OnInit {
   public modifyWeightSaved: Boolean = false;
   public remainingSum: any;
 
-  constructor(private dataKeeper: DataKeeperService,
-              private apiService: ApiService) {
-    this.dataKeeper.listen().subscribe((message: any) => {
-      if (message === 'splitDetailsLoaded') {
-        this.calculate();
-      }
-  });
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit() {
+
   }
 
   calculate() {
@@ -55,7 +49,7 @@ export class SplitOnPercentageComponent implements OnInit {
 
   saveWeight() {
     this.splitObject.updateWeight = true;
-    this.apiService.sendPercenatgeSplit(this.splitObject).subscribe((result: any) => {
+    this.apiService.setSplitDetails(this.splitObject).subscribe((result: any) => {
       this.modifyWeightSaved = false;
     });
   }

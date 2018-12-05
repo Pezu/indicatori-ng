@@ -67,7 +67,10 @@
                 <td>{{ articleName(exp.articleId) }}</td>
                 <td>{{ exp.amount }}</td>
                 <td>{{ exp.description }}</td>
-                <td><i class="fa fa-columns" (click)="split(exp)" aria-label="Imparte"></i></td>
+                <td>
+                    <i class="fa fa-columns" (click)="split(exp)" aria-label="Imparte" *ngIf="exp.splitId === null"></i>
+                    <i class="fa fa-eye" (click)="viewSplit(exp)" aria-label="Imparte" *ngIf="!exp.splitId === null"></i>
+                </td>
                 <td><i class="fa fa-trash" (click)="confirmDelete(exp.id)" aria-label="Sterge"></i></td>
             </tr>
         </tbody>
