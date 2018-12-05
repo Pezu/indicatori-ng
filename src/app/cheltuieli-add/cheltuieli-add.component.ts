@@ -65,7 +65,6 @@ export class CheltuieliAddComponent implements OnInit {
     });
     this.apiService.getGrupaCategorieArticol().subscribe((response) => {
       this.articleList = response;
-      console.log(response);
       let counter = 0;
       while (counter < this.articleList.length) {
           this.articleList[counter].composedName =
@@ -80,6 +79,7 @@ export class CheltuieliAddComponent implements OnInit {
   }
 
   readResults() {
+    this.pageNo = 1;
     const output = {
       month: this.selectedMonth,
       articleId: null,
@@ -98,8 +98,6 @@ export class CheltuieliAddComponent implements OnInit {
     this.apiService.fetchFacturi(output).subscribe((result: any) => {
       this.pageMax = Math.floor(result.count / this.pageSize) + 1;
       this.expensesList = result.expenses;
-      console.log('expenses:');
-      console.log(result.expenses);
     });
   }
 
@@ -208,6 +206,21 @@ export class CheltuieliAddComponent implements OnInit {
     });
   }
 
+  confirmDeleteSplit(id: Number) {
+    const modalRef = this.modalService.open(YesnomodalComponent);
+    modalRef.componentInstance.titlu = 'Confirma stergerea impartirii';
+    modalRef.componentInstance.message = 'Confirmand veti elimina impartirea de pe aceasta cheltuiala';
+    modalRef.componentInstance.result.subscribe(() => {
+        this.deleteSplit(id);
+        }, error => {});
+  }
+
+  deleteSplit(id: Number) {
+    this.apiService.deleteFacturiImpartite(id).subscribe((result: any) => {
+      this.readResults();
+    });
+  }
+
   articleName(id: any): String {
     for (const elem of this.articleList) {
       if (elem.id === id) { return elem.name; }
@@ -253,6 +266,7 @@ export class CheltuieliAddComponent implements OnInit {
           const modalRef1 = this.modalService.open(SimplemodalComponent);
             modalRef1.componentInstance.title = 'Impartire Cheltuiala';
             modalRef1.componentInstance.message = 'Suma a fost impartita cu succes';
+            this.readResults();
         } else {
           const modalRef1 = this.modalService.open(SimplemodalComponent);
           modalRef1.componentInstance.title = 'Impartire Cheltuiala';
@@ -263,6 +277,7 @@ export class CheltuieliAddComponent implements OnInit {
 
   viewSplit(exp: any) {
     const modalRef = this.modalService.open(CheltuieliViewComponent, {'size': 'lg'});
+    modalRef.componentInstance.month = this.selectedMonth;
     modalRef.componentInstance.exp = exp;
     modalRef.componentInstance.result.subscribe((result: Boolean) => {
         });

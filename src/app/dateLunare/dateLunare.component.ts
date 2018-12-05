@@ -23,7 +23,6 @@ export class DatelunareComponent implements OnInit {
               private catalogService: CatalogService,
               private dataKeeper: DataKeeperService) {
                 this.dataKeeper.listen().subscribe((message: any) => {
-                  console.log(message);
                   if (message === 'selectedMonthChange') { this.initialState(); }
               });
   }

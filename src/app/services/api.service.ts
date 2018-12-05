@@ -35,6 +35,10 @@ export class ApiService {
     return this.messageService.getRequest('/api/catalog/mounthly-type');
   }
 
+  getAccounts() {
+    return this.messageService.getRequest('/api/catalog/accounts');
+  }
+
   getMonthlyAllowedUnits(id: Number) {
     return this.messageService.getRequest('/api/monthly/allowed/' + String(id));
   }
@@ -59,6 +63,10 @@ export class ApiService {
     return this.messageService.getRequest('/api/expense/delete/' + expenseId);
   }
 
+  deleteFacturiImpartite(expenseId: any) {
+    return this.messageService.getRequest('/api/expense/delete-split/' + expenseId);
+  }
+
   sendNewArticle(object: any) {
     return this.messageService.postRequest('/api/admin/article', object);
   }
@@ -70,4 +78,13 @@ export class ApiService {
   setSplitDetails(object: any) {
     return this.messageService.postRequest('/api/expense/split-create', object);
   }
+
+  getHSDAvailable(unitId: any) {
+    return this.messageService.getRequest('/api/expense/isHsdAvailable/' + unitId);
+  }
+
+  getFixedList(object) {
+    return this.messageService.postRequest('/api/fixed/get', object);
+  }
+
 }

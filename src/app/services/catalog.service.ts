@@ -16,6 +16,8 @@ export class CatalogService {
   private loadedCategories: Boolean = false;
   private splits: any;
   private loadedSplits: Boolean = false;
+  private accounts: any;
+  private loadedAccounts: Boolean = false;
   private groups: any;
   private loadedGroups: Boolean = false;
   private monthlyType: any;
@@ -125,6 +127,23 @@ export class CatalogService {
           this.monthlyType = result;
           this.loadedMonthlyType = true;
           observer.next(this.monthlyType);
+          observer.complete();
+        });
+      }
+    });
+    return obs;
+  }
+
+  public getAccounts(): Observable<any> {
+    const obs = new Observable( observer => {
+      if (this.loadedAccounts) {
+        observer.next(this.accounts);
+        observer.complete();
+      } else {
+        this.apiService.getAccounts().subscribe((result: any) => {
+          this.accounts = result;
+          this.loadedAccounts = true;
+          observer.next(this.accounts);
           observer.complete();
         });
       }

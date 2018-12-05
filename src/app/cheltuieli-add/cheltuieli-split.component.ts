@@ -3,6 +3,7 @@ import { ApiService } from '../services/api.service';
 import { CatalogService } from '../services/catalog.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataKeeperService } from '../services/datakeeper.service';
+import { Utils } from '../services/utils.service';
 
 @Component({
   selector: 'app-cheltuieli-split',
@@ -36,10 +37,12 @@ export class CheltuieliSplitComponent implements OnInit {
   }
 
   readData() {
-    this.catalogService.getSplits().subscribe((response: any) => {
-      this.splitList = response;
-      console.log(response);
-    });
+    this.apiService.getHSDAvailable(this.exp.unitId).subscribe((result: any) => {
+        this.catalogService.getSplits().subscribe((response: any) => {
+          this.splitList = Utils.cloneObject(response);
+          if (!result) { this.splitList =  this.splitList.filter(elem => elem.code !== 'HSD'); }
+        });
+      });
   }
 
   changeSplit() {
@@ -61,7 +64,6 @@ export class CheltuieliSplitComponent implements OnInit {
           if (this.splitObject.children[counter].weight === null) { this.splitObject.children[counter].weight = 0; }
       counter++;
       }
-      console.log(this.splitObject);
       this.selectedSplitCode =  this.toSelectedSplitCode;
       this.dataKeeper.shareMessage('splitDetailsLoaded');
     });
@@ -79,7 +81,6 @@ export class CheltuieliSplitComponent implements OnInit {
   }
 
   cancel() {
-    this.result.emit(false);
     this.activeModal.close();
   }
 

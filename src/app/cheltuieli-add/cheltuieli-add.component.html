@@ -41,7 +41,6 @@
         <option value= 10> Afisaza 10 </option>
         <option value= 50> Afisaza 50 </option>
         <option value= 100> Afisaza 100 </option>
-        <option value= 0> Afisaza toate </option>
     </select>
 
     <span (click)="paginaStanga()" *ngIf="pageNo>1"> <i class="fa fa-chevron-left"></i> </span> Pagina {{pageNo}} din {{pageMax}} <span (click)="paginaDreapta()" *ngIf="pageNo<pageMax"> <i class="fa fa-chevron-right"></i> </span>
@@ -69,9 +68,12 @@
                 <td>{{ exp.description }}</td>
                 <td>
                     <i class="fa fa-columns" (click)="split(exp)" aria-label="Imparte" *ngIf="exp.splitId === null"></i>
-                    <i class="fa fa-eye" (click)="viewSplit(exp)" aria-label="Imparte" *ngIf="!exp.splitId === null"></i>
+                    <i class="fa fa-eye" (click)="viewSplit(exp)" aria-label="Imparte" *ngIf="!(exp.splitId === null)"></i>
                 </td>
-                <td><i class="fa fa-trash" (click)="confirmDelete(exp.id)" aria-label="Sterge"></i></td>
+                <td>
+                    <i class="fa fa-trash" (click)="confirmDelete(exp.id)" aria-label="Sterge" *ngIf="exp.splitId === null"></i>
+                    <i class="fa fa-remove" (click)="confirmDeleteSplit(exp.id)" aria-label="Sterge" *ngIf="!(exp.splitId === null)"></i>
+                </td>
             </tr>
         </tbody>
     </table>

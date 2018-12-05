@@ -58,8 +58,7 @@ export class AdminArticolComponent implements OnInit {
   }
 
   valid(): Boolean {
-    console.log('valid');
-    if (this.articleName === '') { console.log('false'); return false; }
+    if (this.articleName === '') { return false; }
     return true;
   }
 
@@ -77,6 +76,5 @@ export class AdminArticolComponent implements OnInit {
               modalRef.componentInstance.title = 'Salvare Articol';
               modalRef.componentInstance.message = 'A survenit o eroare la salvare';
           });
-    console.log(this.articleName);
   }
 }

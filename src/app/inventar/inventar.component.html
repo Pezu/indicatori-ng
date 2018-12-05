@@ -1,1 +1,44 @@
-trebe endpointuri and shit
+<select class="select" name="stare" [(ngModel)]="selectedStare" (change)="changeStare()">
+        <option *ngFor="let s of stareList" [value]="s.code">{{s.name}}</option>
+</select>
+<select class="select" name="account" [(ngModel)]="selactedAccount" (change)="changeAccount()" *ngIf="selectieAccount">
+        <option value = 0> - Toate Gestiunile - </option>
+        <option *ngFor="let a of accoutList" [value]="a.id">{{a.name}}</option>
+</select>
+
+<select class="select" name="pagesize" [(ngModel)]="pageSize" (change)="readResults(selactedAccount)">
+        <option value= 10> Afisaza 10 </option>
+        <option value= 50> Afisaza 50 </option>
+        <option value= 100> Afisaza 100 </option>
+    </select>
+
+    <span (click)="paginaStanga()" *ngIf="pageNo>1"> <i class="fa fa-chevron-left"></i> </span> Pagina {{pageNo}} din {{pageMax}} <span (click)="paginaDreapta()" *ngIf="pageNo<pageMax"> <i class="fa fa-chevron-right"></i> </span>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="width:5%">#</th>
+            <th style="width:10%">Cod</th>
+            <th style="width:30%">Nume</th>
+            <th style="width:30%">Nume Gestiune</th>
+            <th style="width:5%"></th>
+            <th style="width:5%"></th>
+            <th style="width:5%"></th>
+            <th style="width:5%"></th>
+            <th style="width:5%"></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let fix of fixedList; let i = index">
+                <td>{{i + 1 + pageNo*10}}</td>
+                <td>{{ fix.code }}</td>
+                <td>{{ fix.name }}</td>
+                <td>{{ fix.account.name }}</td>
+                <td> <i class="fa fa-columns" (click)="move(fix)" title="Muta"></i> </td>
+                <td> <i class="fa fa-columns" (click)="quickMove(fix,'CAS')" title="Caseaza"></i> </td>
+                <td> <i class="fa fa-columns" (click)="quickMove(fix,'CNS')" title="Consuma"></i> </td>
+                <td> <i class="fa fa-columns" (click)="confirmDelete(fix.id)" title="Sterge"></i> </td>
+                <td> <i class="fa fa-columns" (click)="details(fix.id)" title="Detalii"></i> </td>
+            </tr>
+        </tbody> 
+    </table>
