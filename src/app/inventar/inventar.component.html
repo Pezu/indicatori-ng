@@ -6,7 +6,9 @@
         <option *ngFor="let a of accoutList" [value]="a.id">{{a.name}}</option>
 </select>
 
-<select class="select" name="pagesize" [(ngModel)]="pageSize" (change)="readResults(selactedAccount)">
+<button type="button" class="salvare" (click)="add()">Adauga</button>
+
+<select class="select" name="pagesize" [(ngModel)]="pageSize" (change)="readResults(selactedAccount, true)">
         <option value= 10> Afisaza 10 </option>
         <option value= 50> Afisaza 50 </option>
         <option value= 100> Afisaza 100 </option>
@@ -30,15 +32,15 @@
         </thead>
         <tbody>
             <tr *ngFor="let fix of fixedList; let i = index">
-                <td>{{i + 1 + pageNo*10}}</td>
+                <td>{{i + 1 + (pageNo-1)*pageSize}}</td>
                 <td>{{ fix.code }}</td>
                 <td>{{ fix.name }}</td>
                 <td>{{ fix.account.name }}</td>
-                <td> <i class="fa fa-columns" (click)="move(fix)" title="Muta"></i> </td>
-                <td> <i class="fa fa-columns" (click)="quickMove(fix,'CAS')" title="Caseaza"></i> </td>
-                <td> <i class="fa fa-columns" (click)="quickMove(fix,'CNS')" title="Consuma"></i> </td>
-                <td> <i class="fa fa-columns" (click)="confirmDelete(fix.id)" title="Sterge"></i> </td>
-                <td> <i class="fa fa-columns" (click)="details(fix.id)" title="Detalii"></i> </td>
+                <td> <i class="fa fa-list-ul" (click)="details(fix.id)" title="Detalii"></i> </td>
+                <td> <i class="fa fa-arrows-h" (click)="move(fix)" title="Muta"></i> </td>
+                <td> <i class="fa fa-usd" (click)="confirmQuickMove(fix,'CST')" title="Caseaza"></i> </td>
+                <td> <i class="fa fa-minus" (click)="confirmQuickMove(fix,'CNS')" title="Consuma"></i> </td>
+                <td> <i class="fa fa-trash" (click)="confirmDelete(fix.id)" title="Sterge"></i> </td>
             </tr>
         </tbody> 
     </table>

@@ -40,6 +40,9 @@ import { AdminMenuComponent } from './admin/admin-menu.component';
 import { AdminArticolComponent } from './admin/admin-articol.component';
 import { AdminUserComponent } from './admin/admin-user.component';
 import { InventarComponent } from './inventar/inventar.component';
+import { InventarAddComponent } from './inventar/inventar-add.component';
+import { InventarMoveComponent } from './inventar/inventar-move.component';
+import { InventarDetailsComponent } from './inventar/inventar-details.component';
 
 
 
@@ -76,7 +79,10 @@ const appRoutes: Routes = [
     AdminArticolComponent,
     CheltuieliViewComponent,
     AdminUserComponent,
-    InventarComponent
+    InventarComponent,
+    InventarAddComponent,
+    InventarMoveComponent,
+    InventarDetailsComponent
   ],
   imports: [
     FormsModule,
@@ -109,7 +115,10 @@ const appRoutes: Routes = [
     AddExpenseModalComponent,
     YesnomodalComponent,
     CheltuieliSplitComponent,
-    CheltuieliViewComponent
+    CheltuieliViewComponent,
+    InventarAddComponent,
+    InventarMoveComponent,
+    InventarDetailsComponent
   ],
   bootstrap: [AppComponent]
 })

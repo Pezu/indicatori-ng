@@ -83,8 +83,24 @@ export class ApiService {
     return this.messageService.getRequest('/api/expense/isHsdAvailable/' + unitId);
   }
 
-  getFixedList(object) {
+  getFixedList(object: any) {
     return this.messageService.postRequest('/api/fixed/get', object);
+  }
+
+  addFixed(object: any) {
+    return this.messageService.postRequest('/api/fixed/create', object);
+  }
+
+  moveFixed(object: any) {
+    return this.messageService.postRequest('/api/fixed/move', object);
+  }
+
+  deleteFixed(id: any) {
+    return this.messageService.deleteRequest('/api/fixed/delete/' + id);
+  }
+
+  getFixedDetails(id: any) {
+    return this.messageService.getRequest('/api/fixed/details/' + id);
   }
 
 }

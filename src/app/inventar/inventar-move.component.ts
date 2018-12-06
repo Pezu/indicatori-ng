@@ -3,18 +3,17 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-inventar-add',
-  templateUrl: './inventar-add.component.html',
-  styleUrls: ['./inventar-add.component.scss']
+  selector: 'app-inventar-move',
+  templateUrl: './inventar-move.component.html',
+  styleUrls: ['./inventar-move.component.scss']
 })
 
-export class InventarAddComponent implements OnInit {
+export class InventarMoveComponent implements OnInit {
 
   @Output() result: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+  @Input() fix: any;
   @Input() accoutList: any;
-  public code: any = '';
-  public name: any = '';
-  public accountId: any;
+  public destAccountId: any;
 
   constructor(private apiService: ApiService,
     public activeModal: NgbActiveModal) {
@@ -22,23 +21,22 @@ export class InventarAddComponent implements OnInit {
  }
 
   ngOnInit() {
-    this.accountId = this.accoutList[0].id;
+    this.accoutList = this.accoutList.filter(elem => (elem.id !== this.fix.account.id));
+    this.destAccountId = this.accoutList[0].id;
   }
 
   valid(): Boolean {
-    if (this.code === '') { return false; }
-    if (this.name === '') { return false; }
     if (this.accoutList.length === 0) { return false; }
     return true;
   }
 
   doSave() {
       const output = {
-        code: this.code,
-        name: this.name,
-        accountId: this.accountId
+        fixedId: this.fix.id,
+        sourceAccountId: this.fix.account.id,
+        destinationAccountId: this.destAccountId
       };
-      this.apiService.addFixed(output).subscribe((result: any) => {
+      this.apiService.moveFixed(output).subscribe((result: any) => {
         this.result.emit(true);
         this.activeModal.close();
       }, error => {

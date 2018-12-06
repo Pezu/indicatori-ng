@@ -41,7 +41,7 @@ export class CheltuieliAddComponent implements OnInit {
       this.dataKeeper.listen().subscribe((message: any) => {
         if (message === 'selectedMonthChange') {
           this.initialInit();
-          this.readResults();
+          this.readResults(true);
         }
     });
 }
@@ -50,7 +50,7 @@ export class CheltuieliAddComponent implements OnInit {
     this.selectedUnitId = 0;
     this.initialInit();
     this.readData();
-    this.readResults();
+    this.readResults(true);
   }
 
   readData() {
@@ -78,8 +78,8 @@ export class CheltuieliAddComponent implements OnInit {
     });
   }
 
-  readResults() {
-    this.pageNo = 1;
+  readResults(toPage1: Boolean) {
+    if (toPage1) { this.pageNo = 1; }
     const output = {
       month: this.selectedMonth,
       articleId: null,
@@ -143,7 +143,7 @@ export class CheltuieliAddComponent implements OnInit {
       this.articleListDisplay = this.articleList;
       this.categoryListDisplay = [];
     }
-    this.readResults();
+    this.readResults(true);
   }
 
   selectCategory() {
@@ -160,7 +160,7 @@ export class CheltuieliAddComponent implements OnInit {
           this.articleListDisplay = this.articleList;
         }
       }
-      this.readResults();
+      this.readResults(true);
   }
 
   changeArticle() {
@@ -169,7 +169,7 @@ export class CheltuieliAddComponent implements OnInit {
       this.categoryListDisplay = this.categoryList.filter(filterElem => Number(filterElem.group.id) === Number(this.selectedGroupId));
       this.selectedCategoryId = this.getCategoryIdByCode(elem.groupCode, elem.categoryCode);
     }}
-    this.readResults();
+    this.readResults(true);
   }
 
   addFactura() {
@@ -181,7 +181,7 @@ export class CheltuieliAddComponent implements OnInit {
     modalRef.componentInstance.month = this.selectedMonth;
     modalRef.componentInstance.result.subscribe( (value: any) => {
         let confirmare = true;
-        if ( value === 'Saved' ) { this.readResults(); }
+        if ( value === 'Saved' ) { this.readResults(true); }
         if ( value === 'Error' ) { confirmare = false; }
         if (!confirmare) {
           const modalRef1 = this.modalService.open(SimplemodalComponent);
@@ -202,7 +202,7 @@ export class CheltuieliAddComponent implements OnInit {
 
   deleteFactura(id: Number) {
     this.apiService.deleteFacturi(id).subscribe((result: any) => {
-      this.readResults();
+      this.readResults(true);
     });
   }
 
@@ -217,7 +217,7 @@ export class CheltuieliAddComponent implements OnInit {
 
   deleteSplit(id: Number) {
     this.apiService.deleteFacturiImpartite(id).subscribe((result: any) => {
-      this.readResults();
+      this.readResults(true);
     });
   }
 
@@ -249,12 +249,12 @@ export class CheltuieliAddComponent implements OnInit {
 
   paginaStanga() {
     this.pageNo = this.pageNo - 1;
-    this.readResults();
+    this.readResults(false);
   }
 
   paginaDreapta() {
     this.pageNo = this.pageNo + 1;
-    this.readResults();
+    this.readResults(false);
   }
 
   split(exp: any) {
@@ -266,7 +266,7 @@ export class CheltuieliAddComponent implements OnInit {
           const modalRef1 = this.modalService.open(SimplemodalComponent);
             modalRef1.componentInstance.title = 'Impartire Cheltuiala';
             modalRef1.componentInstance.message = 'Suma a fost impartita cu succes';
-            this.readResults();
+            this.readResults(true);
         } else {
           const modalRef1 = this.modalService.open(SimplemodalComponent);
           modalRef1.componentInstance.title = 'Impartire Cheltuiala';

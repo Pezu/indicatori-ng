@@ -1,6 +1,6 @@
 <div class="content">
 
-    <select class="select" name="unit" [(ngModel)]="selectedUnitId" (change)="readResults()">
+    <select class="select" name="unit" [(ngModel)]="selectedUnitId" (change)="readResults(true)">
         <option value= 0> - Unitate - </option>
         <option *ngFor="let u of unitList" [value]="u.id">{{u.name}}</option>
     </select> 
@@ -13,12 +13,12 @@
             <option value= 0> - Categorie - </option>
             <option *ngFor="let c of categoryListDisplay" [value]="c.id">{{c.name}}</option>
     </select> 
-    <select class="select" name="splited" [(ngModel)]="filterSplited" (change)="readResults()">
+    <select class="select" name="splited" [(ngModel)]="filterSplited" (change)="readResults(true)">
         <option value= 0> - Doar cele nedistribuite - </option>
         <option value= 1> - Doar cele distribuite - </option>
         <option value= 2> - Distribuite sau nedistribuite - </option>
     </select>
-    <select class="select" name="parent" [(ngModel)]="filterEntered" (change)="readResults()">
+    <select class="select" name="parent" [(ngModel)]="filterEntered" (change)="readResults(true)">
         <option value= 0> - Doar cele introduse - </option>
         <option value= 1> - Doar cele calculate - </option>
         <option value= 2> - Introduse sau calculate - </option>
@@ -37,7 +37,7 @@
 
     <button type="button" class="salvare" (click)="addFactura()">Adauga</button>
 
-    <select class="select" name="pagesize" [(ngModel)]="pageSize" (change)="readResults()">
+    <select class="select" name="pagesize" [(ngModel)]="pageSize" (change)="readResults(true)">
         <option value= 10> Afisaza 10 </option>
         <option value= 50> Afisaza 50 </option>
         <option value= 100> Afisaza 100 </option>
@@ -60,7 +60,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let exp of expensesList; let i = index">
-                <td>{{i + 1}}</td>
+                <td>{{i + 1 + (pageNo-1)*pageSize}}</td>
                 <td>{{ unitName(exp.unitId) }}</td>
                 <td>{{ codeName(exp.groupId, exp.categoryId, exp.articleId) }}</td>
                 <td>{{ articleName(exp.articleId) }}</td>
