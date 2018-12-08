@@ -64,6 +64,7 @@ export class CheltuieliSplitComponent implements OnInit {
           if (this.splitObject.children[counter].weight === null) { this.splitObject.children[counter].weight = 0; }
       counter++;
       }
+      console.log( this.splitObject);
       this.selectedSplitCode =  this.toSelectedSplitCode;
       this.dataKeeper.shareMessage('splitDetailsLoaded');
     });
@@ -71,6 +72,7 @@ export class CheltuieliSplitComponent implements OnInit {
 
   doSave() {
     this.splitObject.updateWeight = false;
+    console.log(this.splitObject);
     this.apiService.setSplitDetails(this.splitObject).subscribe((result: any) => {
       this.result.emit(true);
       this.activeModal.close();
@@ -92,7 +94,9 @@ export class CheltuieliSplitComponent implements OnInit {
     let sum = 0;
     if (this.splitObject) {
       for (const elem of this.splitObject.children) { sum = sum + Number(elem.value); }
-      if (Math.abs(Number(this.value) - sum) > 0.001) { return false; }
+      console.log(Math.abs(Number(this.value) - sum));
+      console.log(0.005 * this.splitObject.children.length);
+      if (Math.abs(Number(this.value) - sum) > (0.005 * this.splitObject.children.length)) { return false; }
     } else { return false; }
     return true;
   }

@@ -37,10 +37,10 @@
                 <td>{{ fix.name }}</td>
                 <td>{{ fix.account.name }}</td>
                 <td> <i class="fa fa-list-ul" (click)="details(fix.id)" title="Detalii"></i> </td>
-                <td> <i class="fa fa-arrows-h" (click)="move(fix)" title="Muta"></i> </td>
-                <td> <i class="fa fa-usd" (click)="confirmQuickMove(fix,'CST')" title="Caseaza"></i> </td>
-                <td> <i class="fa fa-minus" (click)="confirmQuickMove(fix,'CNS')" title="Consuma"></i> </td>
-                <td> <i class="fa fa-trash" (click)="confirmDelete(fix.id)" title="Sterge"></i> </td>
+                <td> <i class="fa fa-arrows-h" (click)="move(fix)" title="Muta" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
+                <td> <i class="fa fa-usd" (click)="confirmQuickMove(fix,'CST')" title="Caseaza" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
+                <td> <i class="fa fa-minus" (click)="confirmQuickMove(fix,'CNS')" title="Consuma" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
+                <td> <i class="fa fa-trash" (click)="confirmDelete(fix.id)" title="Sterge" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
             </tr>
         </tbody> 
     </table>
