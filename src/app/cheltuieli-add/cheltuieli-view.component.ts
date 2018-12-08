@@ -32,7 +32,6 @@ export class CheltuieliViewComponent implements OnInit {
     this.unitListNameMap = new Map;
     this.catalogService.getUnits().subscribe((response: any) => {
       for (const elem of response) { this.unitListNameMap.set(elem.id, elem.name); }
-      console.log( this.unitListNameMap );
     });
     this.catalogService.getSplits().subscribe((response: any) => {
       for (const elem of response) { this.splitListMap.set(elem.id, elem.code); }

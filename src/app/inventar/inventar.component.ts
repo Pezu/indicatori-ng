@@ -63,7 +63,6 @@ export class InventarComponent implements OnInit {
     const object = {filter: this.selectedStare, account: selAcc, pageNo: this.pageNo, pageSize: this.pageSize };
     this.apiService.getFixedList(object).subscribe((result) => {
       this.fixedList = result.fixed;
-      console.log(this.fixedList);
       this.pageMax = Math.floor(result.count / this.pageSize) + 1;
     });
   }

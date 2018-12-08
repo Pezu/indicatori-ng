@@ -33,13 +33,32 @@ export class SplitOnUniversalComponent implements OnInit, OnChanges {
              let val = this.value * Number(this.splitObject.children[counter].weight) / this.weightSum;
              val = Math.round(val * 100);
              this.splitObject.children[counter].value = val / 100;
-            //  let val = this.value * Number(this.splitObject.children[counter].weight) / this.weightSum;
-            //  this.splitObject.children[counter].value = val;
-            //  val = Math.round(val * 100);
-            //  this.splitObject.children[counter].valueDisplay = val / 100;
     counter++;
     }
+    this.redistribuire();
     if (this.weightSum) { this.saveOk.emit(true); } else { this.saveOk.emit(false); }
+}
+
+redistribuire() {
+  if (this.splitObject) {
+    let sum = 0;
+    for (const elem of this.splitObject.children) { sum = sum + Number(elem.value); }
+    sum = this.value - sum;
+      let counter = 0;
+      while (Math.abs(sum) > 0.005) {
+        let val = 0;
+        if ( sum > 0 ) {
+          val = Number(this.splitObject.children[counter].value) + 0.01;
+          sum = sum - 0.01;
+        } else {
+          val = Number(this.splitObject.children[counter].value) - 0.01;
+          sum = sum + 0.01;
+        }
+          val = Math.round(val * 100);
+          this.splitObject.children[counter].value = val / 100;
+          counter++;
+        }
+  }
 }
 
 }
