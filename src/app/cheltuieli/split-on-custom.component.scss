@@ -102,7 +102,7 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
     cursor: pointer;
     color: #34bfa3;
-    margin-left: 70%;
+    margin-left: 40%;
 }
 .fa:hover {
     color: #9816f4;
@@ -110,4 +110,11 @@ input[type=number]::-webkit-outer-spin-button {
 .autocomplete {
     margin-top: 20px;
     box-shadow: none;
+}
+.info {
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+.value {
+    color: red;
 }

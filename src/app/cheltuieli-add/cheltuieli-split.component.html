@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <div class="title">Imparte cheltuieli</div>
+    <div class="title">De repartizat: {{value}} lei</div>
     <button type="button" class="close" aria-label="Close" (click)="cancel()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -9,7 +9,7 @@
         <option value= 'NUL'> - Tip de repartizare - </option>
         <option *ngFor="let s of splitList" [value]="s.code">{{s.name}}</option>
     </select>
-    Valoare de impartit:{{value}}
+    
     <div *ngIf="selectedSplitCode !== 'NUL'">
         <div class="divider"> </div>
         <app-split-on-custom *ngIf="selectedSplitCode === 'MAN'" [value]="value" [splitObject]="splitObject" (saveOk)="receiveMessage($event)"> </app-split-on-custom>

@@ -60,7 +60,7 @@ input[type="text"]:focus {
     height: 36px;
     background-color: transparent;
     width: 200px;
-    margin-right: 3%;
+    float: right;
     cursor: pointer;
     margin-bottom: 36px;
     font-family: Roboto;
@@ -95,4 +95,11 @@ input[type="text"]:focus {
 .table {
     font-family: Roboto;
     font-size: 12px;
+}
+.page {
+    font-family: Roboto;
+    font-size: 12px;
+}
+.long {
+    width: 250px;
 }

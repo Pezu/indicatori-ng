@@ -3,7 +3,7 @@ import { Utils } from '../services/utils.service';
 @Component({
   selector: 'app-split-on-custom',
   templateUrl: './split-on-custom.component.html',
-  styleUrls: ['./cheltuieli.component.scss']
+  styleUrls: ['./split-on-custom.component.scss']
 })
 
 export class SplitOnCustomComponent implements OnInit {

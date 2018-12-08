@@ -1,15 +1,15 @@
 <div class="layer">
     <img src="pics/graph.png" width="50" height="50" alt="">
     <div class="item" *ngIf="hasRight('VDL')"  [routerLink]="['/home/date_lunare']">
-        <span> <i class="fa fa-plus fw"></i> </span>
+        <span> <i class="fa fa-calendar fw"></i> </span>
         Date Lunare
     </div>
     <div class="item" *ngIf="hasRight('VCHEADD')" [routerLink]="['/home/facturi']">
-        <span> <i class="fa fa-plus fw"></i> </span>
-        Adaugare Cheltuieli
+        <span> <i class="fa fa-usd fw"></i> </span>
+        Cheltuieli
     </div>
     <div class="item" *ngIf="hasRight('VRAP')" [routerLink]="['/home/rapoarte']">
-        <span> <i class="fa fa-remove fw"></i> </span>
+        <span> <i class="fa fa-bar-chart"></i> </span>
         Rapoarte
     </div>
     <div class="item" *ngIf="hasRight('INV')" [routerLink]="['/home/inventar']">
@@ -19,12 +19,10 @@
     <select class="select" name="selMon" [(ngModel)]="selectedMonth" (change)="changeSelectedMonth()">
             <option *ngFor="let m of monthList" [value]="m.val">{{m.name}}</option>
     </select>  
-    <div class="item" *ngIf="hasRight('ADM')" [routerLink]="['/admin']">
-        <a>Admin</a>
-    </div>  
     <div class="user">
         {{loggedUser}} - {{loggedUserRole}}
         <i (click)="doLogOff()" class="fa fa-power-off logout"></i>
+        <i *ngIf="hasRight('ADM')" [routerLink]="['/admin']" class="fa fa-user admin"></i>
     </div>         
 
 </div>

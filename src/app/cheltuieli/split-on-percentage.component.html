@@ -1,6 +1,6 @@
         <div class="textfield" *ngFor="let e of splitObject.children; index as i">
             <label class="label">{{e.unitName}}</label>
             <input type="text" name="elementValue_{{i}}" [(ngModel)]="e.value" [disabled]="true"> 
-            <input type="number" name="elementWeight_{{i}}" [(ngModel)]="e.weight" (change)=changeWeight()> 
+            <input type="number" name="elementWeight_{{i}}" [(ngModel)]="e.weight" (keyup)=changeWeight() (change)=changeWeight() #weightInput (click)="weightInput.select()"> 
         </div>
             <i class="fa fa-save" *ngIf="modifyWeightSaved" (click)="saveWeight()"></i> 
