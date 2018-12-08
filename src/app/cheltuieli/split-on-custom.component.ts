@@ -22,26 +22,34 @@ export class SplitOnCustomComponent implements OnInit {
 
   ngOnInit() {
     this.storedChildren = Utils.cloneObject(this.splitObject.children);
-    this.calculateRemainingSum();
+    this.calculateRemainingSum(0);
   }
 
   readData() {
     this.splitObject.children.splice(0, this.splitObject.children.length);
     for (const elem of this.storedChildren) { this.splitObject.children.push(elem); }
-    this.calculateRemainingSum();
+    this.calculateRemainingSum(0);
   }
 
-  calculateRemainingSum() {
-    let sum = 0;
-    for (const elem of this.splitObject.children) { sum = sum + Number(elem.value); }
-    this.remainingSum = this.value - sum;
-    if (Math.abs(this.remainingSum) < 0.001) {
-        this.canSave = true;
-        this.saveOk.emit(true);
-      } else {
-        this.canSave = false;
-        this.saveOk.emit(false);
-      }
+  calculateRemainingSum(time: any) {
+    setTimeout( () => {
+        let sum = 0;
+        for (const elem of this.splitObject.children) { sum = sum + Number(elem.value); }
+        this.remainingSum = this.value - sum;
+        if (Math.abs(this.remainingSum) < 0.001) {
+            this.canSave = true;
+            this.saveOk.emit(true);
+          } else {
+            this.canSave = false;
+            this.saveOk.emit(false);
+          }
+    }, time );
   }
+
+  decimalize(val: any): any {
+    val = Math.round(val * 100);
+    return val / 100;
+  }
+
 
 }

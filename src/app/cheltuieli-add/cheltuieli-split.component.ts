@@ -92,7 +92,7 @@ export class CheltuieliSplitComponent implements OnInit {
     let sum = 0;
     if (this.splitObject) {
       for (const elem of this.splitObject.children) { sum = sum + Number(elem.value); }
-      if (Math.abs(Number(this.value) - sum) > (0.005 * this.splitObject.children.length)) { return false; }
+      if (Math.abs(Number(this.value) - sum) > 0.0049) { return false; }
     } else { return false; }
     return true;
   }

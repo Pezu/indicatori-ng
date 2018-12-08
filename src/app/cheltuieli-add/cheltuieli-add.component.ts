@@ -78,6 +78,11 @@ export class CheltuieliAddComponent implements OnInit {
     });
   }
 
+  decimalize(val: any): any {
+    val = Math.round(val * 100);
+    return val / 100;
+  }
+
   readResults(toPage1: Boolean) {
     if (toPage1) { this.pageNo = 1; }
     const output = {

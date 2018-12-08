@@ -64,7 +64,7 @@
                 <td>{{ unitName(exp.unitId) }}</td>
                 <td>{{ codeName(exp.groupId, exp.categoryId, exp.articleId) }}</td>
                 <td>{{ articleName(exp.articleId) }}</td>
-                <td>{{ exp.amount }}</td>
+                <td>{{ decimalize(exp.amount) }}</td>
                 <td>{{ exp.description }}</td>
                 <td>
                     <i class="fa fa-random" (click)="split(exp)" aria-label="Imparte" *ngIf="exp.splitId === null"></i>
