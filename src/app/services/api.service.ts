@@ -103,4 +103,8 @@ export class ApiService {
     return this.messageService.getRequest('/api/fixed/details/' + id);
   }
 
+  getDefaultSplit(unitid: any, artid: any) {
+    return this.messageService.getRequest('/api/expense/default-split/' + unitid + '/' + artid);
+  }
+
 }

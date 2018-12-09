@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { CatalogService } from '../services/catalog.service';
@@ -41,6 +42,10 @@ export class CheltuieliSplitComponent implements OnInit {
         this.catalogService.getSplits().subscribe((response: any) => {
           this.splitList = Utils.cloneObject(response);
           if (!result) { this.splitList =  this.splitList.filter(elem => elem.code !== 'HSD'); }
+          this.apiService.getDefaultSplit(this.exp.unitId, this.exp.articleId).subscribe((ans: any) => {
+            if (ans === null) { this.toSelectedSplitCode = 'NUL'; } else { this.toSelectedSplitCode = ans; }
+            console.log(ans);
+          });
         });
       });
   }
