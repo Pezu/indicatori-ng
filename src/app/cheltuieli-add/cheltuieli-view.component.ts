@@ -53,14 +53,13 @@ export class CheltuieliViewComponent implements OnInit {
       groupId: this.exp.groupId
     }).subscribe((result: any) => {
       this.splitObject = result;
-      let counter = 0;
-      while (counter < this.splitObject.children.length) {
-          if (this.splitObject.children[counter].weight === null) { this.splitObject.children[counter].weight = 0; }
-      counter++;
-      }
     });
   }
 
+  decimalize(val: any): any {
+    val = Math.round(val * 100);
+    return val / 100;
+  }
 
   cancel() {
     this.activeModal.close();

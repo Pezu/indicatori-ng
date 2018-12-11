@@ -5,7 +5,7 @@
         </button>
     </div>
     <div class="modal-body">
-        Muta obiectul din {{fix.account.name}} in 
+        <span class="move">Muta obiectul din {{fix.account.name}} in </span>
         <select class="select" name="account" [(ngModel)]="destAccountId">
             <option *ngFor="let a of accoutList" [value]="a.id">{{a.name}}</option>
         </select>

@@ -71,7 +71,7 @@
                     <i class="fa fa-eye" (click)="viewSplit(exp)" aria-label="Imparte" *ngIf="!(exp.splitId === null)"></i>
                 </td>
                 <td>
-                    <i class="fa fa-trash" (click)="confirmDelete(exp.id)" aria-label="Sterge" *ngIf="exp.splitId === null"></i>
+                    <i class="fa fa-trash" (click)="confirmDelete(exp.id)" aria-label="Sterge" *ngIf="exp.parentId === null && exp.splitId === null"></i>
                     <i class="fa fa-remove" (click)="confirmDeleteSplit(exp.id)" aria-label="Sterge" *ngIf="!(exp.splitId === null)"></i>
                 </td>
             </tr>

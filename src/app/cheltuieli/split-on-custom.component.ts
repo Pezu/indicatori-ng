@@ -35,8 +35,8 @@ export class SplitOnCustomComponent implements OnInit {
     setTimeout( () => {
         let sum = 0;
         for (const elem of this.splitObject.children) { sum = sum + Number(elem.value); }
-        this.remainingSum = this.value - sum;
-        if (Math.abs(this.remainingSum) < 0.001) {
+        this.remainingSum = this.decimalize(this.value) - sum;
+        if (this.remainingSum === 0) {
             this.canSave = true;
             this.saveOk.emit(true);
           } else {

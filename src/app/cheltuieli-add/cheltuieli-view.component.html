@@ -1,5 +1,6 @@
 <div class="modal-header">
-<div class="title">Repartizarea sumei {{exp.amount}} lei pe {{unitListNameMap.get(exp.unitId)}} dupa {{splitListNameMap.get(exp.splitId)}}</div>
+<div class="title" *ngIf="exp.splitId == 5">Suma {{decimalize(exp.amount)}} lei pe {{unitListNameMap.get(exp.unitId)}} nu se repartizeaza</div>
+<div class="title" *ngIf="exp.splitId != 5">Repartizarea sumei {{decimalize(exp.amount)}} lei pe {{unitListNameMap.get(exp.unitId)}} dupa {{splitListNameMap.get(exp.splitId)}}</div>
     <button type="button" class="close" aria-label="Close" (click)="cancel()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -7,7 +8,7 @@
 <div class="modal-body">
     <div class="textfield" *ngFor="let e of splitObject.children; index as i">
         <label class="label">{{e.unitName}}</label>
-        <input type="text" name="elementValue_{{i}}" [(ngModel)]="e.value" [disabled]="true"> 
+        <input type="text" name="elementValue_{{i}}" value="{{decimalize(e.value)}}" [disabled]="true"> 
         <input type="text" name="elementWeight_{{i}}" [(ngModel)]="e.weight" [disabled]="true"> 
     </div>
 </div>

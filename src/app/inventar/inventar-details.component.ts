@@ -12,8 +12,8 @@ export class InventarDetailsComponent implements OnInit {
 
   @Input() id: any;
   public displayList: any[];
-  public code: any;
-  public name: any;
+  @Input() code: any;
+  @Input() name: any;
 
   constructor(private apiService: ApiService,
               public activeModal: NgbActiveModal) {

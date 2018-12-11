@@ -14,7 +14,7 @@
         <option value= 100> Afisaza 100 </option>
     </select>
 
-    <span (click)="paginaStanga()" *ngIf="pageNo>1"> <i class="fa fa-chevron-left"></i> </span> Pagina {{pageNo}} din {{pageMax}} <span (click)="paginaDreapta()" *ngIf="pageNo<pageMax"> <i class="fa fa-chevron-right"></i> </span>
+    <span (click)="paginaStanga()" *ngIf="pageNo>1"> <i class="fa fa-chevron-left"></i> </span> <span class="page">{{pageNo}} / {{pageMax}}</span> <span (click)="paginaDreapta()" *ngIf="pageNo<pageMax"> <i class="fa fa-chevron-right"></i> </span>
 
     <table class="table">
         <thead>
@@ -22,7 +22,7 @@
             <th style="width:5%">#</th>
             <th style="width:10%">Cod</th>
             <th style="width:30%">Nume</th>
-            <th style="width:30%">Nume Gestiune</th>
+            <th style="width:30%">Gestiune</th>
             <th style="width:5%"></th>
             <th style="width:5%"></th>
             <th style="width:5%"></th>
@@ -36,9 +36,9 @@
                 <td>{{ fix.code }}</td>
                 <td>{{ fix.name }}</td>
                 <td>{{ fix.account.name }}</td>
-                <td> <i class="fa fa-list-ul" (click)="details(fix.id)" title="Detalii"></i> </td>
-                <td> <i class="fa fa-arrows-h" (click)="move(fix)" title="Muta" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
-                <td> <i class="fa fa-usd" (click)="confirmQuickMove(fix,'CST')" title="Caseaza" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
+                <td> <i class="fa fa-search" (click)="details(fix.id, fix.code, fix.name)" title="Detalii"></i> </td>
+                <td> <i class="fa fa-arrows-alt" (click)="move(fix)" title="Muta" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
+                <td> <i class="fa fa-gavel" (click)="confirmQuickMove(fix,'CST')" title="Caseaza" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
                 <td> <i class="fa fa-minus" (click)="confirmQuickMove(fix,'CNS')" title="Consuma" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
                 <td> <i class="fa fa-trash" (click)="confirmDelete(fix.id)" title="Sterge" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
             </tr>

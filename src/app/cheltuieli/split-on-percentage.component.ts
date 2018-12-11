@@ -21,7 +21,7 @@ export class SplitOnPercentageComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.calculate();
   }
 
   calculate() {

@@ -1,30 +1,27 @@
 <div class="modal-header">
-        <div class="title">Detalii obiect inventar</div>
-        <button type="button" class="close" aria-label="Close" (click)="cancel()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-           Articolul {{code}} {{name}}
-           <table class="table">
-                <thead>
-                <tr>
-                    <th style="width:10%">#</th>
-                    <th style="width:30%">Mutat din</th>
-                    <th style="width:30%">Mutat in</th>
-                    <th style="width:30%">La data</th>
+    <div class="title">Detalii obiect inventar</div>
+    <button type="button" class="close" aria-label="Close" (click)="cancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+        Articolul {{code}} - {{name}}
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width:10%">#</th>
+                <th style="width:30%">Mutat din</th>
+                <th style="width:30%">Mutat in</th>
+                <th style="width:30%">La data</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let d of displayList; let i = index">
+                    <td>{{i}}</td>
+                    <td>{{d.sourceAccount.name}}</td>
+                    <td>{{d.destinationAccount.name}}</td>
+                    <td>{{d.createdAt}}</td>
                 </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let d of displayList; let i = index">
-                        <td>{{i}}</td>
-                        <td>{{d.sourceAccount.name}}</td>
-                        <td>{{d.destinationAccount.name}}</td>
-                        <td>{{d.createdAt}}</td>
-                    </tr>
-                </tbody>
-            </table>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="salvare" (click)="cancel()">Inchide</button>
-    </div>
+            </tbody>
+        </table>
+</div>

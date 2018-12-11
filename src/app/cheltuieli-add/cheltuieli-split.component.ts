@@ -63,17 +63,20 @@ export class CheltuieliSplitComponent implements OnInit {
       groupId: this.exp.groupId
     }).subscribe((result: any) => {
       this.splitObject = result;
-      let counter = 0;
-      while (counter < this.splitObject.children.length) {
-          if (this.splitObject.children[counter].weight === null) { this.splitObject.children[counter].weight = 0; }
-      counter++;
-      }
       this.selectedSplitCode =  this.toSelectedSplitCode;
       this.dataKeeper.shareMessage('splitDetailsLoaded');
     });
   }
 
   doSave() {
+
+    if (this.toSelectedSplitCode === 'MAN') {
+      for (var i = 0; i < this.splitObject.children.length; i++) {
+        var kid = this.splitObject.children[i];
+        kid.value = kid.value / this.decimalize(this.value) * this.value.valueOf();
+      }
+    } 
+
     this.splitObject.updateWeight = false;
     this.apiService.setSplitDetails(this.splitObject).subscribe((result: any) => {
       this.result.emit(true);
@@ -99,6 +102,11 @@ export class CheltuieliSplitComponent implements OnInit {
       if (Math.abs(Number(this.value) - sum) > 0.0049) { return false; }
     } else { return false; }
     return true;
+  }
+
+  decimalize(val: any): any {
+    val = Math.round(val * 100);
+    return val / 100;
   }
 
 }
