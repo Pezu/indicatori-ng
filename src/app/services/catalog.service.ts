@@ -22,6 +22,10 @@ export class CatalogService {
   private loadedGroups: Boolean = false;
   private monthlyType: any;
   private loadedMonthlyType: Boolean = false;
+  private users: any;
+  private loadedUsers: Boolean = false;
+  private rapportTypes: any;
+  private loadedRapportTypes: Boolean = false;
 
   constructor(private apiService: ApiService) {
     this.months = new Map();
@@ -144,6 +148,40 @@ export class CatalogService {
           this.accounts = result;
           this.loadedAccounts = true;
           observer.next(this.accounts);
+          observer.complete();
+        });
+      }
+    });
+    return obs;
+  }
+
+  public getUsers(): Observable<any> {
+    const obs = new Observable( observer => {
+      if (this.loadedUsers) {
+        observer.next(this.users);
+        observer.complete();
+      } else {
+        this.apiService.getUsers().subscribe((result: any) => {
+          this.users = result;
+          this.loadedUsers = true;
+          observer.next(this.users);
+          observer.complete();
+        });
+      }
+    });
+    return obs;
+  }
+
+  public getRapports(): Observable<any> {
+    const obs = new Observable( observer => {
+      if (this.loadedRapportTypes) {
+        observer.next(this.rapportTypes);
+        observer.complete();
+      } else {
+        this.apiService.getRapports().subscribe((result: any) => {
+          this.rapportTypes = result;
+          this.loadedRapportTypes = true;
+          observer.next(this.rapportTypes);
           observer.complete();
         });
       }

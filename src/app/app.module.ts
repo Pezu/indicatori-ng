@@ -19,7 +19,6 @@ import { SplitOnUniversalComponent } from './cheltuieli/split-on-universal.compo
 import { RapoarteComponent } from './reports/rapoarte.component';
 import { DatelunareComponent } from './dateLunare/dateLunare.component';
 import { HomePageComponent } from './home/home-page.component';
-import { EmptyReportComponent } from './reports/empty-report.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {
   NgbAccordionModule,
@@ -63,7 +62,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    EmptyReportComponent,
     HomePageComponent,
     RapoarteComponent,
     DatelunareComponent,

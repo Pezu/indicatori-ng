@@ -8,6 +8,7 @@ import { CheltuieliSplitComponent } from './cheltuieli-split.component';
 import { SimplemodalComponent } from '../utils/simplemodal.component';
 import { YesnomodalComponent } from '../utils/yesnomodal.component';
 import { CheltuieliViewComponent } from './cheltuieli-view.component';
+import { mapChildrenIntoArray } from '@angular/router/src/url_tree';
 @Component({
   selector: 'app-cheltuieli-add',
   templateUrl: './cheltuieli-add.component.html',
@@ -33,6 +34,7 @@ export class CheltuieliAddComponent implements OnInit {
   public pageSize: any = 10;
   public pageNo: any = 1;
   public pageMax: any;
+  public userMap: any;
 
   constructor(private modalService: NgbModal,
     private apiService: ApiService,
@@ -47,6 +49,7 @@ export class CheltuieliAddComponent implements OnInit {
 }
 
   ngOnInit() {
+    this.userMap = new Map;
     this.selectedUnitId = 0;
     this.initialInit();
     this.readData();
@@ -59,6 +62,9 @@ export class CheltuieliAddComponent implements OnInit {
     });
     this.catalogService.getGroups().subscribe((response: any) => {
       this.groupList = response;
+    });
+    this.catalogService.getUsers().subscribe((response: any) => {
+      for (const elem of response) { this.userMap.set(elem.id, elem.name); }
     });
     this.catalogService.getCategories().subscribe((response: any) => {
       this.categoryList = response;

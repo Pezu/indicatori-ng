@@ -1,1 +1,21 @@
-Rapoarte Page
+<select class="select" name="rapporttype" [(ngModel)]="selectedRapportCode" (change)="selectRapport()">
+    <option value= ""> - Rapoarte - </option>
+    <option *ngFor="let r of rapportList" [value]="r.code">{{r.name}}</option>
+</select> 
+<a type="button" class="salvare" href="http://192.168.0.102:9100/rapports/test" target="_blank">Descarca</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th style="width:35%">1</th>
+        <th style="width:35%">2</th>
+        <th style="width:30%">3</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let d of displayList; let i = index">
+            <td>{{d.id}}</td>
+            <td>{{d.code}}</td>
+            <td>{{d.name}}</td>
+        </tr>
+    </tbody>
+</table>

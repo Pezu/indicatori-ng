@@ -39,6 +39,14 @@ export class ApiService {
     return this.messageService.getRequest('/api/catalog/accounts');
   }
 
+  getUsers() {
+    return this.messageService.getRequest('/api/catalog/users');
+  }
+
+  getRapports() {
+    return this.messageService.getRequest('/api/catalog/rapports');
+  }
+
   getMonthlyAllowedUnits(id: Number) {
     return this.messageService.getRequest('/api/monthly/allowed/' + String(id));
   }
@@ -106,5 +114,14 @@ export class ApiService {
   getDefaultSplit(unitid: any, artid: any) {
     return this.messageService.getRequest('/api/expense/default-split/' + unitid + '/' + artid);
   }
+
+  readRapports(code: any) {
+    return this.messageService.getRequest('/api/rapports/read/' + code);
+  }
+
+  exportRapports(code: any) {
+    return this.messageService.getRequest('/api/rapports/test');
+  }
+
 
 }
