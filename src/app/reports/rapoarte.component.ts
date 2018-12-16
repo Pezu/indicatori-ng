@@ -41,5 +41,9 @@ export class RapoarteComponent implements OnInit {
     }
   }
 
+  decimalize(val: any): any {
+    val = Math.round(val * 100);
+    return val / 100;
+  }
 
 }

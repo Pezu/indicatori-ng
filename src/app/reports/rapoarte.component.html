@@ -2,20 +2,39 @@
     <option value= ""> - Rapoarte - </option>
     <option *ngFor="let r of rapportList" [value]="r.code">{{r.name}}</option>
 </select> 
-<a type="button" class="salvare" href="http://192.168.0.102:9100/rapports/test" target="_blank">Descarca</a>
+<a href="http://localhost:9100/rapports/test" target="_blank"><i class="fa fa-file-excel-o"></i></a>
 <table class="table">
     <thead>
     <tr>
-        <th style="width:35%">1</th>
-        <th style="width:35%">2</th>
-        <th style="width:30%">3</th>
+        <th>Cod</th>
+        <th>Sectie</th>
+        <th>Nr.pacienti</th>
+        <th>Nr.paturi</th>
+        <th>Nr.zi spit</th>
+        <th>Cheltuieli totale</th>
+        <th>Cost med / pac</th>
+        <th>Cost med / zi spital</th>
+        <th>Cost med / pat</th>
+        <th>Utilizare pat</th>
+        <th>Durata spit</th>
     </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let d of displayList; let i = index">
-            <td>{{d.id}}</td>
-            <td>{{d.code}}</td>
-            <td>{{d.name}}</td>
+        <tr *ngFor="let d of displayList; let i = index"
+            [style.font-weight]="d.total ? '600' : '100'"
+        >
+            <td *ngIf="!d.total">{{d.code}}</td>
+            <td [attr.colspan]="d.total ? '2' : '1'" 
+                [style.text-align]="d.total ? 'center' : 'left'">{{d.name}}</td>
+            <td>{{d.pacients}}</td>
+            <td>{{d.beds}}</td>
+            <td>{{d.days}}</td>
+            <td>{{decimalize(d.ammount)}}</td>
+            <td>{{decimalize(d.ammPacient)}}</td>
+            <td>{{decimalize(d.ammDay)}}</td>
+            <td>{{decimalize(d.ammBed)}}</td>
+            <td>{{decimalize(d.bedUsage)}}</td>
+            <td>{{decimalize(d.hspDuration)}}</td>
         </tr>
     </tbody>
 </table>
