@@ -166,7 +166,7 @@ export class InventarComponent implements OnInit {
     const modalRef = this.modalService.open(InventarDetailsComponent, {'size': 'lg'});
     modalRef.componentInstance.id = id;
     modalRef.componentInstance.code = code;
-    modalRef.componentInstance.name = name;    
+    modalRef.componentInstance.name = name;
   }
 
   add() {

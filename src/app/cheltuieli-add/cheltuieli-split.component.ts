@@ -71,11 +71,11 @@ export class CheltuieliSplitComponent implements OnInit {
   doSave() {
 
     if (this.toSelectedSplitCode === 'MAN') {
-      for (var i = 0; i < this.splitObject.children.length; i++) {
-        var kid = this.splitObject.children[i];
+      for (let i = 0; i < this.splitObject.children.length; i++) {
+        const kid = this.splitObject.children[i];
         kid.value = kid.value / this.decimalize(this.value) * this.value.valueOf();
       }
-    } 
+    }
 
     this.splitObject.updateWeight = false;
     this.apiService.setSplitDetails(this.splitObject).subscribe((result: any) => {

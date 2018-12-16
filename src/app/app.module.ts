@@ -42,7 +42,9 @@ import { InventarComponent } from './inventar/inventar.component';
 import { InventarAddComponent } from './inventar/inventar-add.component';
 import { InventarMoveComponent } from './inventar/inventar-move.component';
 import { InventarDetailsComponent } from './inventar/inventar-details.component';
-
+import { ReportsSummaryComponent } from './reports/reports-summary.component';
+import { ReportsFixedstockComponent } from './reports/reports-fixedstock.component';
+import { ReportsFixedmovementComponent } from './reports/reports-fixedmovement.component';
 
 
 const appRoutes: Routes = [
@@ -80,7 +82,10 @@ const appRoutes: Routes = [
     InventarComponent,
     InventarAddComponent,
     InventarMoveComponent,
-    InventarDetailsComponent
+    InventarDetailsComponent,
+    ReportsSummaryComponent,
+    ReportsFixedstockComponent,
+    ReportsFixedmovementComponent
   ],
   imports: [
     FormsModule,

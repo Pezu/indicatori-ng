@@ -1,7 +1,7 @@
 import { ApiService } from './../services/api.service';
 import { CatalogService } from './../services/catalog.service';
 import { Component, OnInit } from '@angular/core';
-
+import { DataKeeperService } from '../services/datakeeper.service';
 @Component({
   selector: 'app-rapoarte',
   templateUrl: './rapoarte.component.html',
@@ -13,11 +13,17 @@ export class RapoarteComponent implements OnInit {
   public rapportList: any;
   public selectedRapportCode: any = '';
   public displayList: any;
+  public selectedMonth: String;
+  public downlink: any;
 
-  constructor(private catalogService: CatalogService,
-              private apiService: ApiService) {
-
-  }
+  constructor(
+              private apiService: ApiService,
+              private catalogService: CatalogService,
+              private dataKeeper: DataKeeperService) {
+                this.dataKeeper.listen().subscribe((message: any) => {
+                  if (message === 'selectedMonthChange') { this.initialState(); }
+              });
+}
 
   ngOnInit() {
     this.catalogService.getRapports().subscribe((result: any) => {
@@ -26,24 +32,35 @@ export class RapoarteComponent implements OnInit {
 
   }
 
+  initialState() {
+    this.selectedRapportCode = '';
+    this.displayList = [];
+    this.selectedMonth = this.dataKeeper.getData('selectedMonth');
+  }
+
   selectRapport() {
-    if (this.selectedRapportCode !== '') {
-      this.apiService.readRapports(this.selectedRapportCode).subscribe((result: any) => {
+    if (this.selectedRapportCode === '') { return; }
+    if (this.selectedRapportCode === 'SUM') {
+      this.apiService.readRapportsSummary(this.selectedMonth).subscribe((result: any) => {
         this.displayList = result;
+        this.downlink = 'http://localhost:9100/rapports/export/summary/' + this.selectedMonth;
       });
+      return;
     }
-  }
-
-  doExport() {
-    if (this.selectedRapportCode !== '') {
-      this.apiService.exportRapports(this.selectedRapportCode).subscribe((result: any) => {
+    if (this.selectedRapportCode === 'FMO') {
+      this.apiService.readRapportsFixedMovement(this.selectedMonth).subscribe((result: any) => {
+        this.displayList = result;
+        this.downlink = 'http://localhost:9100/rapports/export/summary/' + this.selectedMonth;
       });
+      return;
     }
-  }
-
-  decimalize(val: any): any {
-    val = Math.round(val * 100);
-    return val / 100;
+    if (this.selectedRapportCode === 'FST') {
+      this.apiService.readRapportsFixedStock(this.selectedMonth).subscribe((result: any) => {
+        this.displayList = result;
+        this.downlink = 'http://localhost:9100/rapports/export/summary/' + this.selectedMonth;
+      });
+      return;
+    }
   }
 
 }
