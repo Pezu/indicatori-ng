@@ -29,7 +29,7 @@ export class RapoarteComponent implements OnInit {
     this.catalogService.getRapports().subscribe((result: any) => {
       this.rapportList = result;
     });
-
+    this.initialState();
   }
 
   initialState() {

@@ -5,11 +5,32 @@
         </button>
     </div>
     <div class="modal-body">
-        <select class="select" name="account" [(ngModel)]="accountId">
-            <option *ngFor="let a of accoutList" [value]="a.id">{{a.name}}</option>
-        </select>
-        <input type="text" name="code" [(ngModel)]="code" placeholder="code">
-        <input type="text" name="name" [(ngModel)]="name" placeholder="name" >
+        <div class="row">
+            <div class="col">
+                <select class="select" name="category" [(ngModel)]="nrArticole" (change)="changeNrArticole()">
+                    <option value= 1> - Numar Articole - </option>
+                    <option *ngFor="let l of valueList" [value]="l">{{l}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <select class="select" name="account" [(ngModel)]="accountId">
+                    <option *ngFor="let a of accoutList" [value]="a.id">{{a.name}}</option>
+                </select>
+                <input type="text" name="code" [(ngModel)]="code" placeholder="cod">
+                <input type="text" name="name" [(ngModel)]="name" placeholder="nume" >
+                <input type="text" name="pret" [(ngModel)]="pret" placeholder="pret" >
+            </div>
+        </div> 
+        <div class="row" *ngFor="let c of listaArticole; index as i">
+            <div class="col">
+                <div class="col">
+                    <input type="text" name="artcode_{{i}}" [(ngModel)]="c.code" placeholder="cod">
+                </div>
+            </div>
+        </div>        
+
     </div>
     <div class="modal-footer">
         <button type="button" class="salvare" (click)="doSave()" [disabled]="!valid()">Adauga</button>
