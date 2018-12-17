@@ -116,15 +116,15 @@ export class ApiService {
   }
 
   readRapportsSummary(month: any) {
-    return this.messageService.getRequest('/rapports/read/summary/' + month);
+    return this.messageService.getRequest('/api/rapports/read/summary/' + month);
   }
 
   readRapportsFixedMovement(fixed_id: any) {
-    return this.messageService.getRequest('/rapports/read/fixed-balance/' + fixed_id);
+    return this.messageService.getRequest('/api/rapports/read/fixed-balance/' + fixed_id);
   }
 
   readRapportsFixedStock(month: any) {
-    return this.messageService.getRequest('/rapports/read/fixed-stock/' + month);
+    return this.messageService.getRequest('/api/rapports/read/fixed-stock/' + month);
   }
 
 }
