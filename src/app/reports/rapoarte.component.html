@@ -2,7 +2,7 @@
     <option value= ""> - Rapoarte - </option>
     <option *ngFor="let r of rapportList" [value]="r.code">{{r.name}}</option>
 </select> 
-<a href="downlink" target="_blank"><i class="fa fa-file-excel-o" *ngIf="selectedRapportCode !== ''"></i></a>
+<a href="{{downlink}}" target="_blank"><i class="fa fa-file-excel-o" *ngIf="selectedRapportCode !== ''"></i></a>
 <app-reports-summary *ngIf="selectedRapportCode === 'SUM'" [displayList]="displayList"> </app-reports-summary>
 <app-reports-fixedmovement *ngIf="selectedRapportCode === 'FMO'" [displayList]="displayList"> </app-reports-fixedmovement>
 <app-reports-fixedstock *ngIf="selectedRapportCode === 'FST'" [displayList]="displayList"> </app-reports-fixedstock> 
