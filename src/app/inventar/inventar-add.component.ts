@@ -16,9 +16,10 @@ export class InventarAddComponent implements OnInit {
   public name: any = '';
   public pret: any = '';
   public nrArticole: Number = 1;
-  public listaArticole: any = [];
+  public quantity: any = '';
+  public description: any = '';
   public accountId: any;
-  public valueList: Number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 
   constructor(private apiService: ApiService,
     public activeModal: NgbActiveModal) {
@@ -31,32 +32,25 @@ export class InventarAddComponent implements OnInit {
 
   initialInit() {
     this.accountId = this.accoutList[0].id;
-    this.name = '';
-    this.pret = '';
-    this.listaArticole.push({code: ''});
   }
 
   valid(): Boolean {
-    for (let x = 0; x < this.listaArticole.length; x++) {
-      if (this.listaArticole[x].code === '') { return false; }
-      for (let y = x; y < this.listaArticole.length; y++) {
-        if ((this.listaArticole[x].code === this.listaArticole[y].code) && (x !== y)) { return false; }
-      }
-    }
     if (this.name === '') { return false; }
-    if (!Utils.stringCanContainOnlyNumbers(this.pret) || (Number(this.pret) === 0)) { return false; }
+    if (this.quantity === '') { return false; }
+    if (isNaN(Number(this.pret)) || Number(this.pret) === 0) { return false; }
+    if (isNaN(Number(this.quantity)) || Number(this.quantity) === 0) { return false; }
     if (this.accoutList.length === 0) { return false; }
     return true;
   }
 
   doSave() {
-      const outlist = [];
-      for (const elem of this.listaArticole) { outlist.push(elem.code); }
+
       const output = {
         pret: this.pret,
         name: this.name,
         accountId: this.accountId,
-        artList: outlist
+        quantity: this.quantity,
+        description: this.description
       };
       this.apiService.addFixed(output).subscribe((result: any) => {
         this.result.emit(true);
@@ -65,11 +59,6 @@ export class InventarAddComponent implements OnInit {
         this.result.emit(false);
         this.activeModal.close();
       });
-  }
-
-  changeNrArticole() {
-    this.listaArticole = [];
-    for (let x = 0; x < this.nrArticole; x++ ) { this.listaArticole.push({code: ''}); }
   }
 
   cancel() {

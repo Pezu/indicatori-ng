@@ -24,6 +24,7 @@ export class InventarComponent implements OnInit {
   ];
   public selectedStare: String = 'ALL';
   public accoutList: any;
+  public accoutListAll: any;
   public selactedAccount: any = 0;
   public selectieAccount: Boolean = false;
   public fixedList: any = [];
@@ -39,6 +40,7 @@ export class InventarComponent implements OnInit {
 
   ngOnInit() {
   this.catalogService.getAccounts().subscribe((result: any) => {
+    this.accoutListAll = result;
     this.accoutList = result.filter(elem => ((elem.code !== 'CST') && (elem.code !== 'CNS')));
   });
   this.readResults(0, true);
@@ -81,6 +83,7 @@ export class InventarComponent implements OnInit {
     const modalRef = this.modalService.open(InventarMoveComponent, {'size': 'lg'});
     modalRef.componentInstance.accoutList = this.accoutList;
     modalRef.componentInstance.fix = fix;
+    modalRef.componentInstance.title = 'Muta in inventar';
     modalRef.componentInstance.result.subscribe((result: Boolean) => {
         if (result) {
           const modalRef1 = this.modalService.open(SimplemodalComponent);
@@ -95,50 +98,42 @@ export class InventarComponent implements OnInit {
         });
   }
 
-  confirmQuickMove(fix: any, where: any) {
-    let message;
-    let title;
-    let message1;
-    let title1;
-    if (where === 'CST') {
-      title = 'Casare Obiect';
-      message = 'Obiectul a fost casat';
-      title1 = 'Confirmare casare obiect';
-      message1 = 'Sunteti sigur ca vreti sa marcati obiectul casat?';
-    } else {
-      title = 'Marcat consumat';
-      message = 'Obiectul a fost consumat';
-      title1 = 'Confirmare consumare obiect';
-      message1 = 'Sunteti sigur ca vreti sa marcati obiectul consumat?';
-    }
-    const modalRef = this.modalService.open(YesnomodalComponent);
-    modalRef.componentInstance.titlu = title1;
-    modalRef.componentInstance.message = message1;
-    modalRef.componentInstance.result.subscribe(() => {
-        this.quickMove(fix, where, message, title);
-        }, error => {});
+  caseaza(fix: any) {
+    const modalRef = this.modalService.open(InventarMoveComponent, {'size': 'lg'});
+    modalRef.componentInstance.accoutList = this.accoutListAll.filter(elem => (elem.code === 'CST'));
+    modalRef.componentInstance.fix = fix;
+    modalRef.componentInstance.title = 'Caseaza obiectele';
+    modalRef.componentInstance.result.subscribe((result: Boolean) => {
+        if (result) {
+          const modalRef1 = this.modalService.open(SimplemodalComponent);
+            modalRef1.componentInstance.title = 'Casare';
+            modalRef1.componentInstance.message = 'Obiectul a fost casat';
+            this.readResults(this.selactedAccount, true);
+        } else {
+          const modalRef1 = this.modalService.open(SimplemodalComponent);
+          modalRef1.componentInstance.title = 'Casare';
+          modalRef1.componentInstance.message = 'A survenit o eroare';
+        }
+        });
   }
 
-  quickMove(fix: any, where: any, message: any, title: any) {
-    let destId;
-    this.catalogService.getAccounts().subscribe((result: any) => {
-      for (const elem of result) { if (elem.code === where) { destId = elem.id; } }
-    });
-    const output = {
-      fixedId: fix.id,
-      sourceAccountId: fix.account.id,
-      destinationAccountId: destId
-    };
-    this.apiService.moveFixed(output).subscribe((result: any) => {
-      const modalRef1 = this.modalService.open(SimplemodalComponent);
-      modalRef1.componentInstance.title = title;
-      modalRef1.componentInstance.message = message;
-      this.readResults(this.selactedAccount, true);
-    }, error => {
-      const modalRef1 = this.modalService.open(SimplemodalComponent);
-      modalRef1.componentInstance.title = title;
-      modalRef1.componentInstance.message = 'A survenit o eroare';
-    });
+  consuma(fix: any) {
+    const modalRef = this.modalService.open(InventarMoveComponent, {'size': 'lg'});
+    modalRef.componentInstance.accoutList = this.accoutListAll.filter(elem => (elem.code === 'CNS'));
+    modalRef.componentInstance.fix = fix;
+    modalRef.componentInstance.title = 'Consuma obiectele';
+    modalRef.componentInstance.result.subscribe((result: Boolean) => {
+        if (result) {
+          const modalRef1 = this.modalService.open(SimplemodalComponent);
+            modalRef1.componentInstance.title = 'Consuma';
+            modalRef1.componentInstance.message = 'Obiectul a fost marcat consumat';
+            this.readResults(this.selactedAccount, true);
+        } else {
+          const modalRef1 = this.modalService.open(SimplemodalComponent);
+          modalRef1.componentInstance.title = 'Consuma';
+          modalRef1.componentInstance.message = 'A survenit o eroare';
+        }
+        });
   }
 
   confirmDelete(id: any) {

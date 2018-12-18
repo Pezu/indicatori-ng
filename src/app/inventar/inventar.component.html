@@ -40,8 +40,8 @@
                 <td>{{ fix.price }}</td>
                 <td> <i class="fa fa-search" (click)="details(fix.id, fix.code, fix.name)" title="Detalii"></i> </td>
                 <td> <i class="fa fa-arrows-alt" (click)="move(fix)" title="Muta" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
-                <td> <i class="fa fa-gavel" (click)="confirmQuickMove(fix,'CST')" title="Caseaza" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
-                <td> <i class="fa fa-minus" (click)="confirmQuickMove(fix,'CNS')" title="Consuma" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
+                <td> <i class="fa fa-gavel" (click)="caseaza(fix)" title="Caseaza" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
+                <td> <i class="fa fa-minus" (click)="consuma(fix)" title="Consuma" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
                 <td> <i class="fa fa-trash" (click)="confirmDelete(fix.id)" title="Sterge" *ngIf="fix.account.code!='CST' && fix.account.code!='CNS'"></i> </td>
             </tr>
         </tbody> 

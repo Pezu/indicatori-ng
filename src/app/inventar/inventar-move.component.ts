@@ -13,7 +13,9 @@ export class InventarMoveComponent implements OnInit {
   @Output() result: EventEmitter<Boolean> = new EventEmitter<Boolean>();
   @Input() fix: any;
   @Input() accoutList: any;
+  @Input() title: any;
   public destAccountId: any;
+  public quantity: any = '';
 
   constructor(private apiService: ApiService,
     public activeModal: NgbActiveModal) {
@@ -27,6 +29,7 @@ export class InventarMoveComponent implements OnInit {
 
   valid(): Boolean {
     if (this.accoutList.length === 0) { return false; }
+    if (isNaN(Number(this.quantity)) || Number(this.quantity) === 0 || Number(this.quantity) > this.fix.quantity) { return false; }
     return true;
   }
 
@@ -34,7 +37,8 @@ export class InventarMoveComponent implements OnInit {
       const output = {
         fixedId: this.fix.id,
         sourceAccountId: this.fix.account.id,
-        destinationAccountId: this.destAccountId
+        destinationAccountId: this.destAccountId,
+        quantity: this.quantity
       };
       this.apiService.moveFixed(output).subscribe((result: any) => {
         this.result.emit(true);

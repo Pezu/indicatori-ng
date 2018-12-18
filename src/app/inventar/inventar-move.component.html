@@ -1,5 +1,5 @@
 <div class="modal-header">
-        <div class="title">Muta in inventar</div>
+        <div class="title">{{title}}</div>
         <button type="button" class="close" aria-label="Close" (click)="cancel()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -9,6 +9,7 @@
         <select class="select" name="account" [(ngModel)]="destAccountId">
             <option *ngFor="let a of accoutList" [value]="a.id">{{a.name}}</option>
         </select>
+        <input type="text" name="quantity" [(ngModel)]="quantity" placeholder="cantitate" >
     </div>
     <div class="modal-footer">
         <button type="button" class="salvare" (click)="doSave()" [disabled]="!valid()">Muta</button>
