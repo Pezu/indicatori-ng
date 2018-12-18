@@ -13,7 +13,6 @@ export class InventarAddComponent implements OnInit {
 
   @Output() result: EventEmitter<Boolean> = new EventEmitter<Boolean>();
   @Input() accoutList: any;
-  public code: any = '';
   public name: any = '';
   public pret: any = '';
   public nrArticole: Number = 1;
