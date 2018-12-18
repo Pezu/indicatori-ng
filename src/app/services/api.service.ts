@@ -119,8 +119,8 @@ export class ApiService {
     return this.messageService.getRequest('/api/rapports/read/summary/' + month);
   }
 
-  readRapportsFixedMovement(fixed_id: any) {
-    return this.messageService.getRequest('/api/rapports/read/fixed-balance/' + fixed_id);
+  readRapportsFixedMovement(month: any) {
+    return this.messageService.getRequest('/api/rapports/read/fixed-balance/' + month);
   }
 
   readRapportsFixedStock(month: any) {

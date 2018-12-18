@@ -50,14 +50,14 @@ export class RapoarteComponent implements OnInit {
     if (this.selectedRapportCode === 'FMO') {
       this.apiService.readRapportsFixedMovement(this.selectedMonth).subscribe((result: any) => {
         this.displayList = result;
-        this.downlink = 'http://localhost:9100/rapports/export/summary/' + this.selectedMonth;
+        this.downlink = 'http://localhost:9100/rapports/export/fixed-balance/' + this.selectedMonth;
       });
       return;
     }
     if (this.selectedRapportCode === 'FST') {
       this.apiService.readRapportsFixedStock(this.selectedMonth).subscribe((result: any) => {
         this.displayList = result;
-        this.downlink = 'http://localhost:9100/rapports/export/summary/' + this.selectedMonth;
+        this.downlink = 'http://localhost:9100/rapports/export/fixed-stock/' + this.selectedMonth;
       });
       return;
     }

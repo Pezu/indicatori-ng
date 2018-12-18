@@ -13,6 +13,7 @@ export class InventarAddComponent implements OnInit {
 
   @Output() result: EventEmitter<Boolean> = new EventEmitter<Boolean>();
   @Input() accoutList: any;
+  public code: any = '';
   public name: any = '';
   public pret: any = '';
   public nrArticole: Number = 1;
@@ -33,8 +34,7 @@ export class InventarAddComponent implements OnInit {
     this.accountId = this.accoutList[0].id;
     this.name = '';
     this.pret = '';
-    this.listaArticole = [];
-    this.changeNrArticole();
+    this.listaArticole.push({code: ''});
   }
 
   valid(): Boolean {
