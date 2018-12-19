@@ -16,6 +16,7 @@ export class InventarMoveComponent implements OnInit {
   @Input() title: any;
   public destAccountId: any;
   public quantity: any = '';
+  public description: any = '';
 
   constructor(private apiService: ApiService,
     public activeModal: NgbActiveModal) {
@@ -29,6 +30,7 @@ export class InventarMoveComponent implements OnInit {
 
   valid(): Boolean {
     if (this.accoutList.length === 0) { return false; }
+    if (this.description === '') { return false; }
     if (isNaN(Number(this.quantity)) || Number(this.quantity) === 0 || Number(this.quantity) > this.fix.quantity) { return false; }
     return true;
   }
@@ -38,7 +40,8 @@ export class InventarMoveComponent implements OnInit {
         fixedId: this.fix.id,
         sourceAccountId: this.fix.account.id,
         destinationAccountId: this.destAccountId,
-        quantity: this.quantity
+        quantity: this.quantity,
+        description: this.description
       };
       this.apiService.moveFixed(output).subscribe((result: any) => {
         this.result.emit(true);

@@ -36,7 +36,7 @@ export class InventarAddComponent implements OnInit {
 
   valid(): Boolean {
     if (this.name === '') { return false; }
-    if (this.quantity === '') { return false; }
+    if (this.description === '') { return false; }
     if (isNaN(Number(this.pret)) || Number(this.pret) === 0) { return false; }
     if (isNaN(Number(this.quantity)) || Number(this.quantity) === 0) { return false; }
     if (this.accoutList.length === 0) { return false; }
