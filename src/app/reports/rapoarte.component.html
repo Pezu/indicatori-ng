@@ -1,8 +1,14 @@
 <select class="select" name="rapporttype" [(ngModel)]="selectedRapportCode" (change)="selectRapport()">
     <option value= ""> - Rapoarte - </option>
     <option *ngFor="let r of rapportList" [value]="r.code">{{r.name}}</option>
+</select>
+<select class="select" name="startDate" [(ngModel)]="selectedDateStart" (change)="selectRapport()">
+    <option *ngFor="let sta of dateList" [value]="sta.code">{{sta.name}}</option>
+</select> 
+<select class="select" name="stopDate" [(ngModel)]="selectedDateStop" (change)="selectRapport()">
+    <option *ngFor="let sto of dateList" [value]="sto.code">{{sto.name}}</option>
 </select> 
 <a href="{{downlink}}" target="_blank"><i class="fa fa-file-excel-o" *ngIf="selectedRapportCode !== ''"></i></a>
 <app-reports-summary *ngIf="selectedRapportCode === 'SUM'" [displayList]="displayList"> </app-reports-summary>
 <app-reports-fixedmovement *ngIf="selectedRapportCode === 'FMO'" [displayList]="displayList"> </app-reports-fixedmovement>
-<app-reports-fixedstock *ngIf="selectedRapportCode === 'FST'" [displayList]="displayList"> </app-reports-fixedstock> 
+<app-reports-fixedstock *ngIf="selectedRapportCode === 'FST'" [displayList]="displayList"> </app-reports-fixedstock>

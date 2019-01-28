@@ -115,16 +115,16 @@ export class ApiService {
     return this.messageService.getRequest('/api/expense/default-split/' + unitid + '/' + artid);
   }
 
-  readRapportsSummary(month: any) {
-    return this.messageService.getRequest('/api/rapports/read/summary/' + month);
+  readRapportsSummary(start: any, stop: any) {
+    return this.messageService.getRequest('/api/rapports/read/summary/' + start + '/' + stop);
   }
 
-  readRapportsFixedMovement(month: any) {
-    return this.messageService.getRequest('/api/rapports/read/fixed-balance/' + month);
+  readRapportsFixedMovement(start: any, stop: any) {
+    return this.messageService.getRequest('/api/rapports/read/fixed-balance/' + start + '/' + stop);
   }
 
-  readRapportsFixedStock(month: any) {
-    return this.messageService.getRequest('/api/rapports/read/fixed-stock/' + month);
+  readRapportsFixedStock(start: any, stop: any) {
+    return this.messageService.getRequest('/api/rapports/read/fixed-stock/' + start + '/' + stop);
   }
 
 }

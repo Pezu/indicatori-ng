@@ -31,7 +31,11 @@ export class HomePageComponent implements OnInit {
     const now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
-    this.selectedMonth = String(year) + String(month);
+    if (month < 10) {
+      this.selectedMonth = String(year) + '0' + String(month);
+    } else {
+      this.selectedMonth = String(year) + String(month);
+    }
     this.dataKeeper.storeData('selectedMonth', this.selectedMonth);
     if ((month - 3) < 1) { year--; month = 9 + month; } else { month = month - 3; }
     let mountCount = 1;
